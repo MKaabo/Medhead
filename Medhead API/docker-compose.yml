@@ -1,0 +1,18 @@
+version: '3.3'
+services:
+
+  #serveur de base de donnees
+  database:
+    image: 'mariadb:10.10'
+    container_name: database
+    restart: always
+    environment:
+      - MYSQL_USER: root
+      - MYSQL_PASSWORD: test
+      - MYSQL_DATABASE: api medhead
+      - MYSQL_ROOT_PASSWORD: root
+
+    ports:
+      - '3306:3306'
+    volumes:
+      - ${PWD}/mariadb/:/var/lib/mysql/ // PATH WINDOWS
