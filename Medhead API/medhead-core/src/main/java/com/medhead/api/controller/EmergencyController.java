@@ -1,7 +1,7 @@
 package com.medhead.api.controller;
 
-import com.medhead.api.entity.Emergency;
-import com.medhead.api.services.EmergencyServiceImpl;
+import com.medhead.api.dao.entity.Emergency;
+import com.medhead.api.services.EmergencyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,17 +10,17 @@ import org.springframework.web.bind.annotation.*;
 public class EmergencyController
 {
     @Autowired
-    EmergencyServiceImpl emergencyServiceImpl;
+    private EmergencyService emergencyService;
 
     @PostMapping("/add")
     public void add(Emergency emergency)
     {
-        emergencyServiceImpl.addEmergency(emergency);
+        emergencyService.addEmergency(emergency);
     }
 
     @DeleteMapping("/deleteById/{id}")
     public void delete(@PathVariable long id)
     {
-        emergencyServiceImpl.removeEmergency(id);
+        emergencyService.removeEmergency(id);
     }
 }

@@ -1,10 +1,12 @@
 package com.medhead.api.services;
 
-import com.medhead.api.entity.Emergency;
+import com.medhead.api.dao.entity.Emergency;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
-public interface ReservationService
+@Service
+public interface EmergencyService
 {
     public ArrayList<Emergency> findAllReservations();
 

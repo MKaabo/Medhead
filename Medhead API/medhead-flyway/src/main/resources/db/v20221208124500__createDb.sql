@@ -1,3 +1,6 @@
+CREATE DATABASE medhead;
+USE medhead;
+
 CREATE TABLE `patient` (
 	`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(50) NOT NULL COLLATE 'latin1_swedish_ci',
@@ -41,5 +44,11 @@ CREATE TABLE `appointment` (
 	`idDoctor` INT(11) UNSIGNED NULL DEFAULT NULL,
 	`idPatient` INT(11) UNSIGNED NULL DEFAULT NULL,
 	`date` DATE NULL DEFAULT NULL,
+	PRIMARY KEY (`id`) USING BTREE
+)
+
+CREATE TABLE `specialization` (
+	`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`specilizationType` VARCHAR(50) NOT NULL DEFAULT '' COLLATE 'latin1_swedish_ci',
 	PRIMARY KEY (`id`) USING BTREE
 )

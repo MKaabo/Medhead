@@ -1,7 +1,7 @@
 package com.medhead.api.dao;
 
 import com.mapbox.services.commons.geojson.Point;
-import com.medhead.api.entity.Hospital;
+import com.medhead.api.dao.entity.Hospital;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

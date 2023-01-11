@@ -1,6 +1,6 @@
 package com.medhead.api.dao;
 
-import com.medhead.api.entity.Patient;
+import com.medhead.api.dao.entity.Patient;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

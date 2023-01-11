@@ -1,7 +1,7 @@
 package com.medhead.api.services;
 
 import com.medhead.api.dao.EmergencyRepository;
-import com.medhead.api.entity.Emergency;
+import com.medhead.api.dao.entity.Emergency;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 @Service
 @Transactional
-public class EmergencyServiceImpl implements ReservationService
+public class EmergencyServiceImpl implements EmergencyService
 {
     @Autowired
     public EmergencyRepository emergencyRepository;

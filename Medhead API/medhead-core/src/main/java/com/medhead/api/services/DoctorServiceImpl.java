@@ -1,7 +1,7 @@
 package com.medhead.api.services;
 
 import com.medhead.api.dao.DoctorRepository;
-import com.medhead.api.entity.Doctor;
+import com.medhead.api.dao.entity.Doctor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

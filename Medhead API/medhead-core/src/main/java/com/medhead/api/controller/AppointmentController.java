@@ -1,7 +1,7 @@
 package com.medhead.api.controller;
 
-import com.medhead.api.entity.Appointment;
-import com.medhead.api.services.AppointmentServiceImpl;
+import com.medhead.api.dao.entity.Appointment;
+import com.medhead.api.services.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,38 +13,33 @@ import java.util.Date;
 public class AppointmentController
 {
     @Autowired
-    AppointmentServiceImpl appointmentServiceImpl;
-
-    @GetMapping("/findAll")
-    public ArrayList<Appointment> getAllAppointments() {
-        return appointmentServiceImpl.findAllAppointments();
-    }
+    private AppointmentService appointmentService;
 
     @GetMapping("/findById/{id}")
-    public Appointment getAppointmentByID(@PathVariable long id) {
-        return appointmentServiceImpl.findAppointmentByID(id);
+    public Appointment getAppointmentById(@PathVariable long id) {
+        return appointmentService.findAppointmentById(id);
     }
 
-    @GetMapping("/findByDoctorId/{id}")
-    public Appointment getAppointmentByDoctorID(@PathVariable long doctorID) {
-        return appointmentServiceImpl.findAppointmentByDoctorID(doctorID);
+    @GetMapping("/findByDoctorId/{doctorId}")
+    public Appointment getAppointmentByDoctorID(@PathVariable long doctorId) {
+        return appointmentService.findAppointmentByDoctorId(doctorId);
     }
 
     @GetMapping("/findByDate/{date}")
     public Appointment getPatientByDate(@PathVariable Date date) {
-        return appointmentServiceImpl.findAppointmentByDate(date);
+        return appointmentService.findAppointmentByDate(date);
     }
 
-    @PostMapping("/add")
-    public void add(Appointment appointment)
+    @PostMapping("/addById/{id}")
+    public void add(@PathVariable long id)
     {
-        appointmentServiceImpl.addAppointment(appointment);
+        appointmentService.addById(id);
     }
 
     @DeleteMapping("/deleteById/{id}")
     public void delete(@PathVariable long id)
     {
-        appointmentServiceImpl.removeAppointment(id);
+        appointmentService.removeById(id);
     }
 
 }

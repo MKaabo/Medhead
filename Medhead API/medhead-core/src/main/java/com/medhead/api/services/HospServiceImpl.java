@@ -2,9 +2,9 @@ package com.medhead.api.services;
 
 import com.mapbox.services.commons.geojson.Point;
 import com.medhead.api.dao.HospitalRepository;
-import com.medhead.api.entity.Appointment;
-import com.medhead.api.entity.Hospital;
-import com.medhead.api.entity.Specialization;
+import com.medhead.api.dao.entity.Appointment;
+import com.medhead.api.dao.entity.Hospital;
+import com.medhead.api.dao.entity.Specialization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -9,7 +9,7 @@ services:
     environment:
       - MYSQL_USER: root
       - MYSQL_PASSWORD: test
-      - MYSQL_DATABASE: api medhead
+      - MYSQL_DATABASE: medhead
       - MYSQL_ROOT_PASSWORD: root
 
     ports:

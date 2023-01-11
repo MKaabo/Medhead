@@ -1,15 +1,15 @@
 package com.medhead.api.services;
 
 import com.medhead.api.dao.AppointmentRepository;
-import com.medhead.api.entity.Appointment;
-import org.springframework.stereotype.Service;
+import com.medhead.api.dao.entity.Appointment;
+import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-@Service
+@Component
 @Transactional
 public class AppointmentServiceImpl implements AppointmentService
 {
@@ -17,21 +17,15 @@ public class AppointmentServiceImpl implements AppointmentService
     public AppointmentRepository appointmentRepository;
 
     @Override
-    public ArrayList<Appointment> findAllAppointments()
+    public Appointment findAppointmentById(long id)
     {
-        return appointmentRepository.findAllAppointments();
+        return findAppointmentById(id);
     }
 
     @Override
-    public Appointment findAppointmentByID(long id)
+    public Appointment findAppointmentByDoctorId(long doctorId)
     {
-        return findAppointmentByID(id);
-    }
-
-    @Override
-    public Appointment findAppointmentByDoctorID(long doctorID)
-    {
-        return findAppointmentByDoctorID(doctorID);
+        return findAppointmentByDoctorId(doctorId);
     }
 
     @Override
@@ -41,12 +35,12 @@ public class AppointmentServiceImpl implements AppointmentService
     }
 
     @Override
-    public void addAppointment(Appointment appointment) {
-        appointmentRepository.addAppointment(appointment);
+    public void addById(long id) {
+        appointmentRepository.addById(id);
     }
 
     @Override
-    public void removeAppointment(long id) {
-        appointmentRepository.removeAppointment(id);
+    public void removeById(long id) {
+        appointmentRepository.removeById(id);
     }
 }

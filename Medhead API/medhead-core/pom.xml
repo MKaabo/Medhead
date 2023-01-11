@@ -13,8 +13,7 @@
     <name>medhead-core</name>
     <version>0.0.1-SNAPSHOT</version>
     <description>Medical solution API for Medhead</description>
-    <packaging>pom</packaging>
-
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
@@ -47,13 +46,6 @@
             <artifactId>hibernate-validator</artifactId>
             <version>8.0.0.Final</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/javax.persistence/javax.persistence-api -->
-        <dependency>
-            <groupId>javax.persistence</groupId>
-            <artifactId>javax.persistence-api</artifactId>
-            <version>2.2</version>
-        </dependency>
-
 
         <dependency>
             <groupId>com.h2database</groupId>
@@ -61,6 +53,13 @@
             <version>2.1.214</version>
             <scope>runtime</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
+        <dependency>
+            <groupId>org.mariadb.jdbc</groupId>
+            <artifactId>mariadb-java-client</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

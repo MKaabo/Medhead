@@ -1,20 +1,20 @@
 package com.medhead.api.services;
-import com.medhead.api.entity.Appointment;
+import com.medhead.api.dao.entity.Appointment;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Date;
 
+@Service
 public interface AppointmentService {
 
-    void addAppointment(Appointment appointment);
+    void addById(long id);
 
-    void removeAppointment(long id);
+    void removeById(long id);
 
-    ArrayList<Appointment> findAllAppointments();
+    Appointment findAppointmentById(long id);
 
-    Appointment findAppointmentByID(long id);
-
-    Appointment findAppointmentByDoctorID(long doctorID);
+    Appointment findAppointmentByDoctorId(long doctorId);
 
     Appointment findAppointmentByDate(Date date);
 }

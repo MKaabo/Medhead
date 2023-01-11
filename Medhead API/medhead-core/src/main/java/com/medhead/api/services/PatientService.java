@@ -1,10 +1,12 @@
 package com.medhead.api.services;
 
-import com.medhead.api.entity.Patient;
+import com.medhead.api.dao.entity.Patient;
+import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.util.ArrayList;
 
+@Service
 public interface PatientService
 {
     // GET

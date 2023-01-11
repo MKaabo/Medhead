@@ -1,12 +1,14 @@
 package com.medhead.api.services;
 
 import com.mapbox.services.commons.geojson.Point;
-import com.medhead.api.entity.Appointment;
-import com.medhead.api.entity.Hospital;
-import com.medhead.api.entity.Specialization;
+import com.medhead.api.dao.entity.Appointment;
+import com.medhead.api.dao.entity.Hospital;
+import com.medhead.api.dao.entity.Specialization;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
+@Service
 public interface HospService {
 
     // GET

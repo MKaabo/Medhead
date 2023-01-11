@@ -1,7 +1,7 @@
 package com.medhead.api.controller;
 
-import com.medhead.api.entity.Patient;
-import com.medhead.api.services.PatientServiceImpl;
+import com.medhead.api.dao.entity.Patient;
+import com.medhead.api.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,25 +11,25 @@ import java.util.ArrayList;
 @RequestMapping("/patient")
 public class PatientController {
     @Autowired
-    PatientServiceImpl patientServiceImpl;
+    private PatientService patientService;
 
     @PostMapping("/add")
     public void add(Patient patient) {
-        patientServiceImpl.addPatient(patient);
+        patientService.addPatient(patient);
     }
 
     @GetMapping("/findAll")
     public ArrayList<Patient> getAllPatients() {
-        return patientServiceImpl.findAllPatients();
+        return patientService.findAllPatients();
     }
 
     @GetMapping("/findById/{id}")
     public Patient getPatientByID(@PathVariable long id) {
-        return patientServiceImpl.findPatientByID(id);
+        return patientService.findPatientByID(id);
     }
 
     @DeleteMapping("/deleteById/{id}")
     public void delete(@PathVariable long id) {
-        patientServiceImpl.removePatient(id);
+        patientService.removePatient(id);
     }
 }
