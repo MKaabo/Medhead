@@ -4,6 +4,7 @@ import com.medhead.api.dao.AppointmentRepository;
 import com.medhead.api.dao.entity.Appointment;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.Date;
 
 @Component
 @Transactional
+@Service
 public class AppointmentServiceImpl implements AppointmentService
 {
     @Autowired
@@ -32,11 +34,6 @@ public class AppointmentServiceImpl implements AppointmentService
     public Appointment findAppointmentByDate(Date date)
     {
         return findAppointmentByDate(date);
-    }
-
-    @Override
-    public void addById(long id) {
-        appointmentRepository.addById(id);
     }
 
     @Override

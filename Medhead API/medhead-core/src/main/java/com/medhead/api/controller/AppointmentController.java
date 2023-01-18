@@ -30,14 +30,8 @@ public class AppointmentController
         return appointmentService.findAppointmentByDate(date);
     }
 
-    @PostMapping("/addById/{id}")
-    public void add(@PathVariable long id)
-    {
-        appointmentService.addById(id);
-    }
-
     @DeleteMapping("/deleteById/{id}")
-    public void delete(@PathVariable long id)
+    public void deleteById(@PathVariable long id)
     {
         appointmentService.removeById(id);
     }

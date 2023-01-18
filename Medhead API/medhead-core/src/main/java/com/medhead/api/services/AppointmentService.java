@@ -8,13 +8,12 @@ import java.util.Date;
 @Service
 public interface AppointmentService {
 
-    void addById(long id);
-
-    void removeById(long id);
 
     Appointment findAppointmentById(long id);
 
     Appointment findAppointmentByDoctorId(long doctorId);
 
     Appointment findAppointmentByDate(Date date);
+
+    void removeById(long id);
 }
