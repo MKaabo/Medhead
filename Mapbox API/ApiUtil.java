@@ -12,15 +12,14 @@ public class ApiUtil
     private static final String BASE_URL = "https://api.mapbox.com/directions-matrix/v1/";
     private static final String PROFILE = "mapbox/driving-traffic";
     private static final String approach = "approaches=curb;curb;curb";
-
-    public static String createMapboxRequest(Direction direction)
+    public static String getDirectionMatrix(String from, List <String> destinations)
     {
         // Set up a request with base url + driving traffic profile
         String mapboxRequest = BASE_URL + PROFILE + '/';
 
         // add coordinates
-        String coordinates = direction.getFrom();
-        for (String possibleDestination : direction.getDestinations())
+        String coordinates = from;
+        for (String possibleDestination : destinations)
             coordinates = coordinates.concat(';' + possibleDestination);
         mapboxRequest += coordinates;
 
@@ -33,7 +32,6 @@ public class ApiUtil
         System.out.println(mapboxRequest);
         return mapboxRequest;
     }
-
     public static String executePost(String targetURL, String urlParameters)
     {
         final String charset = "UTF-8";
