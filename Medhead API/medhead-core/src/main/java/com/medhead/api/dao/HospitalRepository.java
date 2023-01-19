@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface HospitalRepository extends JpaRepository<HospitalEntity, Long> {
     public HospitalEntity findHospitalById(long id);
 
-    public HospitalEntity findHospitalByProximity(Point coord);
+    public HospitalEntity findHospitalByPosition(String pos);
     public void deleteById(long id);
 }

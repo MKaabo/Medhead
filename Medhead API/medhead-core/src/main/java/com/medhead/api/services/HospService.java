@@ -16,7 +16,7 @@ public interface HospService {
 
     // GET
     public Hospital findHospitalById(long id);
-    public Hospital getClosestAvailableHospital(Point position);
+    public Hospital findHospitalByPosition(String pos);
 
     // POST
     public Hospital add(Hospital hospital);

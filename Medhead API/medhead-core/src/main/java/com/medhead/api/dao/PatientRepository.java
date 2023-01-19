@@ -9,7 +9,7 @@ import java.util.ArrayList;
 @Repository
 public interface PatientRepository extends JpaRepository<PatientEntity, Long> {
 
-    public ArrayList <PatientEntity> findAllPatients();
+    public ArrayList <PatientEntity> findAll();
 
     public PatientEntity findPatientById(long id);
     public void deleteById(long ids);

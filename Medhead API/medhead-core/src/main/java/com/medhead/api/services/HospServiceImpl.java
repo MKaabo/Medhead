@@ -21,7 +21,7 @@ public class HospServiceImpl implements HospService {
     }
 
     @Override
-    public Hospital getClosestAvailableHospital(Point position)
+    public Hospital findHospitalByPosition(String pos)
     {
         return null; // TODO
     }
