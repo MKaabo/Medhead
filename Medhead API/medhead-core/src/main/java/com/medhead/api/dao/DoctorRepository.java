@@ -1,25 +1,20 @@
 package com.medhead.api.dao;
 
-import com.medhead.api.dao.entity.Doctor;
-import com.medhead.api.dao.entity.Specialization;
+import com.medhead.api.dao.entity.DoctorEntity;
+import com.medhead.api.dao.entity.SpecializationEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 @Repository
-public interface DoctorRepository extends JpaRepository<Doctor, Long> {
+public interface DoctorRepository extends JpaRepository<DoctorEntity, Long> {
 
-    public Date getDispoByID(long id, Date date);
+    public DoctorEntity findById(long id);
 
-    public ArrayList<Doctor> findAllDoctor();
+    public ArrayList<DoctorEntity> findAll();
 
-    public Doctor findDoctorByID(long id);
+    public DoctorEntity findBySpecializations(SpecializationEntity specialization);
 
-    public Doctor findDoctorsBySpecialization(Specialization specialization);
-
-    public void addDoctor(Doctor doctor);
-
-    public void removeDoctor(long id);
+    public void deleteById(long id);
 }

@@ -1,12 +1,10 @@
 package com.medhead.api;
 
-import com.medhead.api.dao.entity.Doctor;
-import com.medhead.api.dao.entity.Hospital;
-import com.medhead.api.dao.entity.Patient;
+import com.medhead.api.dao.entity.DoctorEntity;
+import com.medhead.api.dao.entity.HospitalEntity;
+import com.medhead.api.dao.entity.PatientEntity;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import javax.print.Doc;
 
 @SpringBootTest
 class DemoApplicationTests {
@@ -17,13 +15,13 @@ class DemoApplicationTests {
 
 	void testSimpleEmergency()
 	{
-		Patient p = new Patient();
-		Hospital hospitalA = new Hospital();
-		Hospital hospitalB = new Hospital();
+		PatientEntity p = new PatientEntity();
+		HospitalEntity hospitalA = new HospitalEntity();
+		HospitalEntity hospitalB = new HospitalEntity();
 
-		Doctor doctorA = new Doctor();
-		Doctor doctorB = new Doctor();
-		Doctor doctorC = new Doctor();
+		DoctorEntity doctorA = new DoctorEntity();
+		DoctorEntity doctorB = new DoctorEntity();
+		DoctorEntity doctorC = new DoctorEntity();
 	}
 
 }

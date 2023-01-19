@@ -1,39 +1,41 @@
 package com.medhead.api.services;
 
 import com.medhead.api.dao.EmergencyRepository;
-import com.medhead.api.dao.entity.Emergency;
+import com.medhead.api.dao.entity.EmergencyEntity;
+import com.medhead.api.dto.Appointment;
+import com.medhead.api.dto.Emergency;
+import com.medhead.api.mapper.DoctorMapper;
+import com.medhead.api.mapper.EmergencyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Transactional
 @Service
 public class EmergencyServiceImpl implements EmergencyService
 {
     @Autowired
-    public EmergencyRepository emergencyRepository;
+    private EmergencyRepository emergencyRepository;
 
+    @Autowired
+    private EmergencyMapper emergencyMapper;
     @Override
-    public ArrayList<Emergency> findAllReservations()
+    public Emergency findEmergencyById(long id)
     {
-        return emergencyRepository.findAllEmergency();
+        return this.emergencyMapper.toModel(emergencyRepository.findEmergencyByID(id));
     }
 
     @Override
-    public Emergency findReservationByID(long id)
-    {
-        return emergencyRepository.findEmergencyByID(id);
+    public Emergency add(Emergency emergency) {
+        return this.emergencyMapper.toModel(this.emergencyRepository.save(this.emergencyMapper.toEntity(emergency)));
     }
 
     @Override
-    public void addEmergency(Emergency emergency) {
-        emergencyRepository.addEmergency(emergency);
+    public void removeById(long id) {
+        this.emergencyRepository.deleteById(id);
     }
 
-    @Override
-    public void removeEmergency(long id) {
-        emergencyRepository.removeEmergency(id);
-    }
 }

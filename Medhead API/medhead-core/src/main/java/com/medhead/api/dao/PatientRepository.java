@@ -1,19 +1,16 @@
 package com.medhead.api.dao;
 
-import com.medhead.api.dao.entity.Patient;
+import com.medhead.api.dao.entity.PatientEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 
 @Repository
-public interface PatientRepository extends JpaRepository<Patient, Long> {
+public interface PatientRepository extends JpaRepository<PatientEntity, Long> {
 
-    public ArrayList <Patient> findAllPatients();
+    public ArrayList <PatientEntity> findAllPatients();
 
-    public Patient findPatientByID(long id);
-
-    public void addPatient(Patient patient);
-
-    public void removePatient(long ids);
+    public PatientEntity findPatientByID(long id);
+    public void deleteById(long ids);
 }

@@ -1,6 +1,6 @@
 package com.medhead.api.dao.dto;
 
-import com.medhead.api.dao.entity.Specialization;
+import com.medhead.api.dto.Specialization;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 

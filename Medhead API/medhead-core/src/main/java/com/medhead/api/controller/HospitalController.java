@@ -1,31 +1,27 @@
 package com.medhead.api.controller;
 
 import com.mapbox.services.commons.geojson.Point;
-import com.medhead.api.dao.entity.Hospital;
+import com.medhead.api.dao.entity.HospitalEntity;
+import com.medhead.api.dto.Hospital;
 import com.medhead.api.services.HospService;
-import com.medhead.api.services.HospServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 @RestController
-@RequestMapping("/hospital")
+@RequestMapping(value = "/hospital", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
 public class HospitalController {
     @Autowired
     private HospService hospService;
 
     @PostMapping("/add")
-    public void add(Hospital hospital) { hospService.addHospital(hospital); }
-
-    @GetMapping("/findAll")
-    public ArrayList<Hospital> getAllHospitals() {
-        return hospService.findAllHospitals();
-    }
-
+    public void add(@RequestBody Hospital hospital) { this.hospService.add(hospital); }
     @GetMapping("/findById/{id}")
     public Hospital getHospitalByID(@PathVariable long id) {
-        return hospService.findHospitalByID(id);
+        return this.hospService.findHospitalById(id);
     }
 
     @GetMapping("/findByCoord/{coordinates}")
@@ -36,6 +32,6 @@ public class HospitalController {
 
     @DeleteMapping("/deleteById/{id}")
     public void delete(@PathVariable long id) {
-        hospService.removeHospital(id);
+       this. hospService.deleteById(id);
     }
 }

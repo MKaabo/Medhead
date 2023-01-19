@@ -1,9 +1,12 @@
 package com.medhead.api.services;
 
 import com.mapbox.services.commons.geojson.Point;
-import com.medhead.api.dao.entity.Appointment;
-import com.medhead.api.dao.entity.Hospital;
-import com.medhead.api.dao.entity.Specialization;
+import com.medhead.api.dao.entity.AppointmentEntity;
+import com.medhead.api.dao.entity.HospitalEntity;
+import com.medhead.api.dao.entity.SpecializationEntity;
+import com.medhead.api.dto.Appointment;
+import com.medhead.api.dto.Hospital;
+import com.medhead.api.dto.Specialization;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,14 +15,12 @@ import java.util.ArrayList;
 public interface HospService {
 
     // GET
-    public ArrayList <Hospital> findAllHospitals();
-    public Hospital findHospitalByID(long id);
+    public Hospital findHospitalById(long id);
     public Hospital getClosestAvailableHospital(Point position);
-    public Appointment getAppointment(Point position, Specialization spec);
 
     // POST
-    public void addHospital(Hospital hospital);
+    public Hospital add(Hospital hospital);
 
     // DELETE
-    public void removeHospital(long id);
+    public void deleteById(long id);
 }

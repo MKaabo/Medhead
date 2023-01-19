@@ -1,7 +1,9 @@
 package com.medhead.api.services;
 
 import com.medhead.api.dao.PatientRepository;
-import com.medhead.api.dao.entity.Patient;
+import com.medhead.api.dao.entity.PatientEntity;
+import com.medhead.api.dto.Patient;
+import com.medhead.api.mapper.PatientMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,38 +16,20 @@ import java.util.ArrayList;
 public class PatientServiceImpl implements PatientService
 {
     @Autowired
-    public PatientRepository patientRepository;
-
+    private PatientRepository patientRepository;
+    private PatientMapper patientMapper;
     @Override
-    public ArrayList<Patient> findAllPatients() {
-        return patientRepository.findAllPatients();
+    public Patient findPatientById(long id) {
+        return this.patientMapper.toModel(patientRepository.findPatientByID(id));
     }
 
     @Override
-    public Patient findPatientByID(long id) {
-        return patientRepository.findPatientByID(id);
+    public Patient add(Patient patient) {
+        return this.patientMapper.toModel(this.patientRepository.save(this.patientMapper.toEntity(patient)));
     }
-
     @Override
-    public void postDocument(File file)
+    public void deleteById(long id)
     {
-
-    }
-
-    @Override
-    public void updateInfo(String infoUpdate, long idInfo)
-    {
-
-    }
-
-    @Override
-    public void addPatient(Patient patient) {
-        patientRepository.addPatient(patient);
-    }
-
-    @Override
-    public void removePatient(long id)
-    {
-        patientRepository.removePatient(id);
+        this.patientRepository.deleteById(id);
     }
 }

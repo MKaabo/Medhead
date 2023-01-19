@@ -1,6 +1,7 @@
 package com.medhead.api.services;
 
-import com.medhead.api.dao.entity.Patient;
+import com.medhead.api.dao.entity.PatientEntity;
+import com.medhead.api.dto.Patient;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -9,19 +10,11 @@ import java.util.ArrayList;
 @Service
 public interface PatientService
 {
-    // GET
-    public ArrayList<Patient> findAllPatients();
-    public Patient findPatientByID(long id);
+    public Patient findPatientById(long id);
 
     // POST
-    public void addPatient(Patient patient);
-
-    // PUT
-    public void postDocument(File file);
-
-    // Each personnal info in user profile should have an id
-    public void updateInfo(String infoUpdate, long idInfo);
+    public Patient add(Patient patient);
 
     // DELETE
-    public void removePatient(long id);
+    public void deleteById(long id);
 }

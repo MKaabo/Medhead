@@ -1,35 +1,34 @@
 package com.medhead.api.controller;
 
-import com.medhead.api.dao.entity.Patient;
+import com.medhead.api.dao.entity.PatientEntity;
+import com.medhead.api.dto.Appointment;
+import com.medhead.api.dto.Patient;
 import com.medhead.api.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 @RestController
-@RequestMapping("/patient")
+@RequestMapping(value="/patient", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
 public class PatientController {
     @Autowired
     private PatientService patientService;
 
     @PostMapping("/add")
-    public void add(Patient patient) {
-        patientService.addPatient(patient);
+    public void add(@RequestBody Patient patient)
+    {
+        this.patientService.add(patient);
     }
-
-    @GetMapping("/findAll")
-    public ArrayList<Patient> getAllPatients() {
-        return patientService.findAllPatients();
-    }
-
     @GetMapping("/findById/{id}")
-    public Patient getPatientByID(@PathVariable long id) {
-        return patientService.findPatientByID(id);
+    public Patient getPatientById(@PathVariable long id) {
+        return patientService.findPatientById(id);
     }
 
     @DeleteMapping("/deleteById/{id}")
-    public void delete(@PathVariable long id) {
-        patientService.removePatient(id);
+    public void deleteById(@PathVariable long id) {
+        patientService.deleteById(id);
     }
 }

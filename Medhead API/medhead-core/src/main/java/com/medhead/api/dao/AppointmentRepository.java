@@ -1,20 +1,20 @@
 package com.medhead.api.dao;
 
-import com.medhead.api.dao.entity.Appointment;
+import com.medhead.api.dao.entity.AppointmentEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Repository
-public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
+public interface AppointmentRepository extends JpaRepository<AppointmentEntity, Long> {
 
-    public Appointment findAppointmentById(long id);
+    public AppointmentEntity findById(long id);
 
-    public ArrayList<Appointment> findAppointmentByDoctorId(long doctorId);
+    public List<AppointmentEntity> findByDoctor_Id(long doctorId);
 
-    public ArrayList<Appointment> findAppointmentByDate(Date date);
+    public List<AppointmentEntity> findByDate(Date date);
 
-    public void removeById(long id);
+    public void deleteById(long id);
 }
