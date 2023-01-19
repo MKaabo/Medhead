@@ -1,17 +1,11 @@
 package com.medhead.api.services;
 
 import com.medhead.api.dao.EmergencyRepository;
-import com.medhead.api.dao.entity.EmergencyEntity;
-import com.medhead.api.dto.Appointment;
 import com.medhead.api.dto.Emergency;
-import com.medhead.api.mapper.DoctorMapper;
 import com.medhead.api.mapper.EmergencyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Transactional
 @Service
@@ -25,7 +19,7 @@ public class EmergencyServiceImpl implements EmergencyService
     @Override
     public Emergency findEmergencyById(long id)
     {
-        return this.emergencyMapper.toModel(emergencyRepository.findEmergencyByID(id));
+        return this.emergencyMapper.toModel(emergencyRepository.findEmergencyById(id));
     }
 
     @Override

@@ -1,15 +1,11 @@
 package com.medhead.api.services;
 
 import com.medhead.api.dao.PatientRepository;
-import com.medhead.api.dao.entity.PatientEntity;
 import com.medhead.api.dto.Patient;
 import com.medhead.api.mapper.PatientMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.io.File;
-import java.util.ArrayList;
 
 @Service
 @Transactional
@@ -20,7 +16,7 @@ public class PatientServiceImpl implements PatientService
     private PatientMapper patientMapper;
     @Override
     public Patient findPatientById(long id) {
-        return this.patientMapper.toModel(patientRepository.findPatientByID(id));
+        return this.patientMapper.toModel(patientRepository.findPatientById(id));
     }
 
     @Override
