@@ -55,10 +55,17 @@ CREATE TABLE `specialization` (
 
 ALTER TABLE `doctor` DISABLE KEYS;
 INSERT INTO `doctor` (`id`, `name`, `specialization`, `hospitalId`)
-VALUES (1, 'Sean Bean', 'IMMUNOLOGY', 1), (2, 'Eric Dupont', 'NEUROPATHOLOGY', 2), (3, 'Mia Fay', 'CARDIOLOGY', 1);
+VALUES (1, 'Sean Bean', 'IMMUNOLOGY', 1),
+       (2, 'Eric Dupont', 'NEUROPATHOLOGY', 2),
+       (3, 'Mia Fay', 'CARDIOLOGY', 1);
 ALTER TABLE `doctor` ENABLE KEYS;
 
 ALTER TABLE `hospital` DISABLE KEYS ;
 INSERT INTO `hospital` (`id`, `name`, `position`, `totalBeds`, `bedsAvailable`)
-VALUES(1, 'Hôpital Nord', '43.379383, 5.362163', 150, 5),(2, 'Hôpital Montperrin', '43.522411, 5.438660', 50, 3);
+VALUES(1, 'Hôpital Nord', '43.379383, 5.362163', 150, 5),
+      (2, 'Hôpital Montperrin', '43.522411, 5.438660', 50, 3);
 ALTER TABLE `hospital` ENABLE KEYS ;
+
+INSERT INTO `patient` (`id`, `name`, `info`, `age`, `email`, `phone`)
+VALUES (1, 'Jean Delaterasse', 'Appointement in December showed hearth weakness', 58, 'jean.delaterasse@gmail.com', 0),
+       (2, 'Frankie Sinatre', 'Emergency response in January for a brain disease', 82, NULL, 0);
