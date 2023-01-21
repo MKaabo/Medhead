@@ -6,6 +6,8 @@ import com.medhead.api.services.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
@@ -20,6 +22,11 @@ public class DoctorController
         return doctorService.findDoctorById(id);
     }
 
+    @GetMapping("/findAll")
+    public List<Doctor> getDoctors()
+    {
+        return doctorService.findAll();
+    }
     @PostMapping("/add")
     public void add(Doctor doctor)
     {
