@@ -13,6 +13,7 @@ public class PatientServiceImpl implements PatientService
 {
     @Autowired
     private PatientRepository patientRepository;
+    @Autowired
     private PatientMapper patientMapper;
     @Override
     public Patient findPatientById(long id) {

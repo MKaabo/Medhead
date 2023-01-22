@@ -5,6 +5,7 @@ import com.medhead.api.dao.HospitalRepository;
 import com.medhead.api.dto.Hospital;
 import com.medhead.api.mapper.HospitalMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,13 +14,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class HospServiceImpl implements HospService {
     @Autowired
     private HospitalRepository hospitalRepository;
-
+    @Qualifier("hospitalMapperImpl")
+    @Autowired
     private HospitalMapper hospitalMapper;
     @Override
     public Hospital findHospitalById(long id) {
         return this.hospitalMapper.toModel(hospitalRepository.findHospitalById(id));
     }
-
     @Override
     public Hospital findHospitalByPosition(String pos)
     {

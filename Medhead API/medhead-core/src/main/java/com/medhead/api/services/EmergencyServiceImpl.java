@@ -13,7 +13,6 @@ public class EmergencyServiceImpl implements EmergencyService
 {
     @Autowired
     private EmergencyRepository emergencyRepository;
-
     @Autowired
     private EmergencyMapper emergencyMapper;
     @Override

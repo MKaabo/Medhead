@@ -20,7 +20,6 @@ public class AppointmentServiceImpl implements AppointmentService
 {
     @Autowired
     private AppointmentRepository appointmentRepository;
-
     @Autowired
     private AppointmentMapper appointmentMapper;
 
