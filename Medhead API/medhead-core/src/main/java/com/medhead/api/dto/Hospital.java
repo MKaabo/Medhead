@@ -1,6 +1,5 @@
 package com.medhead.api.dto;
 
-import com.medhead.api.dao.entity.SpecializationEntity;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
@@ -13,7 +12,7 @@ public class Hospital extends Model
     private String position;
 
     @Positive
-    private int beds_available;
+    private int bedsAvailable;
 
-    private Set<SpecializationEntity> specializations;
+    private Set<Specialization> specializations;
 }

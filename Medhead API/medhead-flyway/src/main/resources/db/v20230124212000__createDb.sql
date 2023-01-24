@@ -32,9 +32,9 @@ CREATE TABLE `emergency` (
 
 CREATE TABLE `doctor` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
-    `name` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
-    `specialization` ENUM('NEUROPATHOLOGY','CARDIOLOGY','IMMUNOLOGY') NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
     `hospital_id` INT(11) NULL DEFAULT NULL,
+    `name` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+    `specialization` INT(11) NULL DEFAULT NULL,
     `is_available` BIT(1) NULL DEFAULT NULL COMMENT 'used as a boolean',
     PRIMARY KEY (`id`) USING BTREE,
     INDEX `doctor_hospital` (`hospital_id`) USING BTREE,

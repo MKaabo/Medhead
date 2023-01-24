@@ -6,7 +6,9 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.*;
 
 import java.util.Set;
@@ -24,9 +26,12 @@ public class HospitalEntity extends Entity
     private String position;
     @Positive
     @NotNull
-    private int total_beds;
+    @Column(name="total_beds")
+    private int totalBeds;
     @Positive
-    private int beds_available;
+    @Column(name="beds_available")
+    private int bedsAvailable;
+
     @OneToMany(mappedBy = "hospital", fetch = FetchType.LAZY)
     @Fetch(value = FetchMode.SUBSELECT)
     private Set<DoctorEntity> doctors;

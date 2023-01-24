@@ -1,5 +1,6 @@
 package com.medhead.api.dao.entity;
 
+import com.medhead.api.dto.Specialization;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
@@ -13,21 +14,19 @@ import java.util.Set;
 @NoArgsConstructor
 @Data
 @Table(name = "doctor")
-public class DoctorEntity extends Entity
-{
-
+public class DoctorEntity extends Entity {
     private String name;
-    @ManyToMany
-    private Set<SpecializationEntity> specializations;
+    @Enumerated
+    private Specialization specialization;
 
-    @OneToMany (mappedBy = "doctor", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY)
     @Fetch(value = FetchMode.SUBSELECT)
-    private Set <AppointmentEntity> appointments;
+    private Set<AppointmentEntity> appointments;
 
-    @ManyToOne(fetch=FetchType.LAZY, optional=false)
-    @JoinColumn(name="hospital_id", referencedColumnName="id")
+    @ManyToOne
     @NotEmpty
     private HospitalEntity hospital;
+    @Column(name = "is_available")
     private boolean isAvailable;
 
 }

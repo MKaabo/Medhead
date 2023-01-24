@@ -16,13 +16,13 @@ public class EmergencyController
     @Autowired
     private EmergencyService emergencyService;
 
-    @PostMapping("/add")
+    @PostMapping
     public void add(@RequestBody Emergency emergency)
     {
         this.emergencyService.add(emergency);
     }
 
-    @DeleteMapping("/deleteById/{id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable long id)
     {
         this.emergencyService.removeById(id);

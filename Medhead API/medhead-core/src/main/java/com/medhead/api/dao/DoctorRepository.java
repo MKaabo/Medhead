@@ -1,7 +1,7 @@
 package com.medhead.api.dao;
 
 import com.medhead.api.dao.entity.DoctorEntity;
-import com.medhead.api.dao.entity.SpecializationEntity;
+import com.medhead.api.dto.Specialization;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +14,7 @@ public interface DoctorRepository extends JpaRepository<DoctorEntity, Long> {
 
     public ArrayList<DoctorEntity> findAll();
 
-    public DoctorEntity findBySpecializations(SpecializationEntity specialization);
+    public DoctorEntity findBySpecialization(Specialization specialization);
 
     public void deleteById(long id);
 }

@@ -14,20 +14,20 @@ public class HospitalController {
     @Autowired
     private HospService hospService;
 
-    @PostMapping("/add")
+    @PostMapping
     public void add(@RequestBody Hospital hospital) { this.hospService.add(hospital); }
-    @GetMapping("/findById/{id}")
+    @GetMapping("/{id}")
     public Hospital getHospitalById(@PathVariable long id) {
         return this.hospService.findHospitalById(id);
     }
 
-    @GetMapping("/findByPosition/{pos}")
-    public Hospital getClosestAvailableHospital(@PathVariable String pos)
+    @GetMapping
+    public Hospital getClosestAvailableHospital(@RequestParam String pos)
     {
         return this.hospService.findHospitalByPosition(pos);
     }
 
-    @DeleteMapping("/deleteById/{id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable long id) {
        this.hospService.deleteById(id);
     }

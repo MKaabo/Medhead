@@ -22,22 +22,16 @@ public class AppointmentController
         return this.appointmentService.add(appointment);
     }
 
-    @GetMapping("/findById/{id}")
+    @GetMapping("/{id}")
     public Appointment getAppointmentById(@PathVariable long id) {
         return appointmentService.findAppointmentById(id);
     }
 
-    @GetMapping("/findByDoctorId/{doctorId}")
-    public List<Appointment> getAppointmentByDoctorID(@PathVariable long doctorId) {
+    @GetMapping
+    public List<Appointment> getAppointmentByDoctorId(@RequestParam long doctorId) {
         return appointmentService.findAppointmentByDoctorId(doctorId);
     }
-
-    @GetMapping("/findByDate/{date}")
-    public List<Appointment> getPatientByDate(@PathVariable Date date) {
-        return appointmentService.findAppointmentByDate(date);
-    }
-
-    @DeleteMapping("/deleteById/{id}")
+    @DeleteMapping("/{id}")
     public void deleteById(@PathVariable long id)
     {
         appointmentService.removeById(id);

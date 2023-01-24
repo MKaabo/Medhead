@@ -17,17 +17,17 @@ public class PatientController {
     @Autowired
     private PatientService patientService;
 
-    @PostMapping("/add")
+    @PostMapping
     public void add(@RequestBody Patient patient)
     {
         this.patientService.add(patient);
     }
-    @GetMapping("/findById/{id}")
+    @GetMapping("/{id}")
     public Patient getPatientById(@PathVariable long id) {
         return patientService.findPatientById(id);
     }
 
-    @DeleteMapping("/deleteById/{id}")
+    @DeleteMapping("/{id}")
     public void deleteById(@PathVariable long id) {
         patientService.deleteById(id);
     }

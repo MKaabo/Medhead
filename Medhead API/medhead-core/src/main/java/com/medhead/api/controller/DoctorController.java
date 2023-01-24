@@ -17,23 +17,23 @@ public class DoctorController
     @Autowired
     private DoctorService doctorService;
 
-    @GetMapping("/findById/{id}")
+    @GetMapping("/{id}")
     public Doctor getDoctorById(@PathVariable long id) {
         return doctorService.findDoctorById(id);
     }
 
-    @GetMapping("/findAll")
+    @GetMapping
     public List<Doctor> getDoctors()
     {
         return doctorService.findAll();
     }
-    @PostMapping("/add")
+    @PostMapping
     public void add(Doctor doctor)
     {
         doctorService.add(doctor);
     }
 
-    @DeleteMapping("/deleteById/{id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable long id)
     {
         doctorService.removeById(id);
