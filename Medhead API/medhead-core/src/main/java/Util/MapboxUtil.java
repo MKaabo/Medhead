@@ -1,12 +1,9 @@
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
-import java.util.List;
-import java.util.Scanner;
+package Util;
 
+import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
+
+@RestController
 public class MapboxUtil
 {
     private static final String TOKEN = "pk.eyJ1IjoibWthYWJvdWNoIiwiYSI6ImNsYzdzOWJtZTAxb2kzb3I1eTF0eGY5NjMifQ.PCAopOMvelzbkR7uWlUKBA";
@@ -32,41 +29,5 @@ public class MapboxUtil
 
         System.out.println(mapboxRequest);
         return mapboxRequest;
-    }
-    public static String executePost(String targetURL, String urlParameters)
-    {
-        final String charset = "UTF-8";
-        final String param1 = "";
-        final String param2 = "";
-        String query = null;
-        try
-        {
-            query = String.format("param1=%s&param2=%s",
-                    URLEncoder.encode(param1, charset),
-                    URLEncoder.encode(param2, charset));
-        }
-        catch (UnsupportedEncodingException e)
-        {
-            e.printStackTrace();
-        }
-
-        URLConnection connection = null;
-        try
-        {
-//            connection = new URL(targetURL + "?" + query).openConnection();
-            connection = new URL(targetURL).openConnection();
-            connection.setRequestProperty("Accept-Charset", charset);
-            InputStream response = connection.getInputStream();
-            try (Scanner scanner = new Scanner(response))
-            {
-                String responseBody = scanner.useDelimiter("\\A").next();
-                System.out.println(responseBody);
-            }
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        return "";
     }
 }
