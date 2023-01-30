@@ -3,7 +3,11 @@ package com.medhead.api.dto;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class Patient extends Model
 {
     private String name;
@@ -13,5 +17,6 @@ public class Patient extends Model
     @Max(value = 150, message = "Age should not be greater than 150")
     private int age;
 
-    private Specialization specializationNeeded;
+    private String position;
+    private Specialization specialization;
 }

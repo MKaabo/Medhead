@@ -43,6 +43,6 @@ public class PatientEntity extends Entity
     @Fetch(value = FetchMode.SUBSELECT)
     private Set<AppointmentEntity> appointments;
 
-    private Specialization specializationNeeded;
+    private Specialization specialization;
 
 }

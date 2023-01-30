@@ -7,8 +7,8 @@ import java.util.List;
 
 @Getter
 @Setter
-public class Emergency extends Model {
-
+public class Emergency extends Model
+{
     private Patient patient;
 
     private Specialization specializationNeeded;
