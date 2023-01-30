@@ -3,9 +3,14 @@ package com.medhead.api.controller;
 import com.medhead.api.dao.entity.EmergencyEntity;
 import com.medhead.api.dto.Appointment;
 import com.medhead.api.dto.Emergency;
+import com.medhead.api.dto.Hospital;
 import com.medhead.api.services.EmergencyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -17,9 +22,9 @@ public class EmergencyController
     private EmergencyService emergencyService;
 
     @PostMapping
-    public void add(@RequestBody Emergency emergency)
+    public void add(@RequestParam int patientId)
     {
-        this.emergencyService.add(emergency);
+        this.emergencyService.add(patientId);
     }
 
     @DeleteMapping("/{id}")
@@ -27,4 +32,6 @@ public class EmergencyController
     {
         this.emergencyService.removeById(id);
     }
+
+    private Emergency emergency;
 }

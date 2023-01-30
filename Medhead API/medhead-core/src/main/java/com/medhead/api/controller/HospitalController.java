@@ -1,6 +1,5 @@
 package com.medhead.api.controller;
 
-import com.mapbox.services.commons.geojson.Point;
 import com.medhead.api.dto.Hospital;
 import com.medhead.api.services.HospService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,7 @@ public class HospitalController {
 
     @PostMapping
     public void add(@RequestBody Hospital hospital) { this.hospService.add(hospital); }
+
     @GetMapping("/{id}")
     public Hospital getHospitalById(@PathVariable long id) {
         return this.hospService.findHospitalById(id);

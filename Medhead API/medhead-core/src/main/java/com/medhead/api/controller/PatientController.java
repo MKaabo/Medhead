@@ -1,13 +1,8 @@
 package com.medhead.api.controller;
-
-import com.medhead.api.dao.entity.PatientEntity;
-import com.medhead.api.dto.Appointment;
 import com.medhead.api.dto.Patient;
 import com.medhead.api.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 

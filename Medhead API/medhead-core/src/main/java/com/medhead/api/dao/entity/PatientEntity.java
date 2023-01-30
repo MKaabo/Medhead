@@ -1,5 +1,6 @@
 package com.medhead.api.dao.entity;
 
+import com.medhead.api.dto.Specialization;
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
@@ -41,5 +42,7 @@ public class PatientEntity extends Entity
     @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
     @Fetch(value = FetchMode.SUBSELECT)
     private Set<AppointmentEntity> appointments;
+
+    private Specialization specializationNeeded;
 
 }

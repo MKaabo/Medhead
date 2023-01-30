@@ -1,26 +1,22 @@
 package com.medhead.api.controller;
 
 import Util.MapboxUtil;
-import com.medhead.api.dto.Destination;
 import com.medhead.api.dto.DirectionRequest;
+import com.medhead.api.dto.Hospital;
+import com.medhead.api.dto.Patient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 @RestController
-public class MapboxController {
+
+public class MapboxController
+{
     @Autowired
     private RestTemplate restTemplate;
 
@@ -29,20 +25,17 @@ public class MapboxController {
     private static String centreHospitalierMontPerrin = "43.520810,5.439959";
 
     @RequestMapping(value = "/directions")
-    public String getDirectionsTest()
+    public DirectionRequest getDirections(Patient patient, List <Hospital> hospitals)
     {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Arrays.asList(MediaType.TEXT_PLAIN));
-        HttpEntity<String> entity = new HttpEntity<>(headers);
-
         List<String> directions = new ArrayList<>();
         directions.add(centreHospitalierAix);
         directions.add(centreHospitalierMontPerrin);
+
         String mapboxQuery = MapboxUtil.getDirectionMatrix(from, directions);
-        DirectionRequest direction = null;
+        DirectionRequest directionRequest = null;
         try
         {
-             direction = restTemplate.getForObject(mapboxQuery, DirectionRequest.class);
+            directionRequest = restTemplate.getForObject(mapboxQuery, DirectionRequest.class);
         }
         catch (HttpClientErrorException e)
         {
@@ -50,8 +43,6 @@ public class MapboxController {
             System.err.println(e.getResponseBodyAsString());
             System.err.print(e.getMessage());
         }
-        if (direction != null)
-            System.out.println("ok");
-        return restTemplate.exchange(mapboxQuery, HttpMethod.GET, entity, String.class).getBody();
+        return directionRequest;
     }
 }

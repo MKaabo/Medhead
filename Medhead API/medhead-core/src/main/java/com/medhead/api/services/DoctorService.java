@@ -1,6 +1,5 @@
 package com.medhead.api.services;
 
-import com.medhead.api.dao.entity.DoctorEntity;
 import com.medhead.api.dto.Doctor;
 import org.springframework.stereotype.Service;
 
