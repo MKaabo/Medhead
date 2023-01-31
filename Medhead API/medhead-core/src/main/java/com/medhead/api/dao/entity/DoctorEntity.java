@@ -23,7 +23,8 @@ public class DoctorEntity extends Entity {
     @Fetch(value = FetchMode.SUBSELECT)
     private Set<AppointmentEntity> appointments;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "hospital_id")
     @NotEmpty
     private HospitalEntity hospital;
     @Column(name = "is_available")

@@ -31,7 +31,6 @@ public class HospitalServiceImpl implements HospitalService {
     public List<Hospital> findAll()
     {
         List<HospitalEntity> hospitalList = this.hospitalRepository.findAll();
-        //filter all appointment after today
         return this.hospitalMapper.toModelList(
                 hospitalList
                         .stream()

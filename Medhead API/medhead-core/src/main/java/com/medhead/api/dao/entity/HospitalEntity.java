@@ -1,14 +1,13 @@
 package com.medhead.api.dao.entity;
 
 import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.*;
 
 import java.util.Set;
@@ -32,8 +31,7 @@ public class HospitalEntity extends Entity
     @Column(name="beds_available")
     private int bedsAvailable;
 
-    @OneToMany(mappedBy = "hospital", fetch = FetchType.LAZY)
-    @Fetch(value = FetchMode.SUBSELECT)
+    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="hospital")
     private Set<DoctorEntity> doctors;
     @OneToMany(mappedBy = "hospital", fetch = FetchType.LAZY)
     @Fetch(value = FetchMode.SUBSELECT)

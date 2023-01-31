@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Transactional
 @Service
@@ -55,25 +53,40 @@ public class EmergencyServiceImpl implements EmergencyService
         List<List<Float>> durations = directionRequest.getDurations();
         //  durations[i][j] -> travel distance from the ith source to the jth durations
         // we are only interested in the durations from durations[0] (our patient position)
-        List<Float> distancesFromPatient = durations.get(patientIndex);
-
+        List<Float> travelTimeFromPatient = durations.get(patientIndex);
         // Sort it in ascending order (closest to farthest)
-        Collections.sort(distancesFromPatient);
+        Collections.sort(travelTimeFromPatient);
 
-        List<Hospital> closestHospitals = new ArrayList<>();
-        int hospitalIndex;
+        List<Hospital> closestHospitals = new ArrayList<> ();
         // Create a list of hospitals sorted from closest to farthest
-        for (Float f : distancesFromPatient)
-            closestHospitals.add(hospitals.get(durations.indexOf(f)));
+        // index is the position in hospitals list corresponding to its travel time in durations
+        int index;
+        for (int i = 0;i < travelTimeFromPatient.size(); i++)
+        {
+            if (i == 0) continue;
+            index = durations.get(patientIndex).indexOf(travelTimeFromPatient.get(i)) - 1;
+            closestHospitals.add(hospitals.get(index));
+        }
 
-        // Remove hospitals with no beds or lacking required specialization
+
+        Set<Specialization> hospitalSpecializations;
         for (Hospital hospital : closestHospitals)
         {
-            if (hospital != null &&
-                hospital.getBedsAvailable() != 0 &&
-                hospital.getSpecializations().contains(patient.getSpecialization()))
-                return hospital;
+            hospitalSpecializations = new HashSet<>();
+            // Get specializations
+            for (Doctor doctor : hospital.getDoctors())
+                hospitalSpecializations.add(doctor.getSpecialization());
+
+            // Remove hospitals with no beds or lacking required specialization
+            if (hospital != null && hospital.getBedsAvailable() != 0)
+            {
+                if (patient.getSpecialization() == null)
+                    return hospital;
+                else if (hospitalSpecializations.contains(patient.getSpecialization()))
+                    return hospital;
+            }
         }
+        System.out.println("Not ok");
         return null;
     }
     @RequestMapping(value = "/directions")

@@ -1,6 +1,4 @@
 package com.medhead.api.controller;
-
-import com.medhead.api.dao.entity.DoctorEntity;
 import com.medhead.api.dto.Doctor;
 import com.medhead.api.services.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;

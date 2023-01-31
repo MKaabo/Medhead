@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -14,9 +15,7 @@ public class Hospital extends Model
     private String name;
     @NotNull
     private String position;
-
     @Positive
     private int bedsAvailable;
-
-    private Set<Specialization> specializations;
+    private List<Doctor> doctors;
 }
