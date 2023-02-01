@@ -1,9 +1,12 @@
 package com.medhead.api.controller;
 
 import com.medhead.api.dto.Appointment;
+import com.medhead.api.exception.AppointmentNotFoundException;
 import com.medhead.api.services.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Date;
 import java.util.List;
@@ -18,19 +21,37 @@ public class AppointmentController
     private AppointmentService appointmentService;
 
     @PostMapping
-    public Appointment add(@RequestBody Appointment appointment) {
+    public Appointment add(@RequestBody Appointment appointment)
+    {
         return this.appointmentService.add(appointment);
     }
 
     @GetMapping("/{id}")
-    public Appointment getAppointmentById(@PathVariable long id) {
-        return appointmentService.findAppointmentById(id);
+    public Appointment getAppointmentById(@PathVariable long id)
+    {
+        try
+        {
+            return appointmentService.findAppointmentById(id);
+        }
+        catch (AppointmentNotFoundException exc)
+        {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Appointment Not Found", exc);
+        }
     }
 
     @GetMapping
-    public List<Appointment> getAppointmentByDoctorId(@RequestParam long doctorId) {
-        return appointmentService.findAppointmentByDoctorId(doctorId);
+    public List<Appointment> getAppointmentByDoctorId(@RequestParam long doctorId)
+    {
+        try
+        {
+            return appointmentService.findAppointmentByDoctorId(doctorId);
+        }
+        catch (AppointmentNotFoundException exc)
+        {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Appointment Not Found", exc);
+        }
     }
+
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable long id)
     {

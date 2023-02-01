@@ -2,12 +2,16 @@ package com.medhead.api.controller;
 
 import com.medhead.api.dao.entity.EmergencyEntity;
 import com.medhead.api.dto.*;
+import com.medhead.api.exception.DoctorNotFoundException;
+import com.medhead.api.exception.EmergencyNotFoundException;
 import com.medhead.api.services.DoctorService;
 import com.medhead.api.services.EmergencyService;
 import com.medhead.api.services.HospitalService;
 import com.medhead.api.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,7 +35,14 @@ public class EmergencyController
     @GetMapping
     public List<Emergency> getEmergencies()
     {
-        return this.emergencyService.findAll();
+        try
+        {
+            return this.emergencyService.findAll();
+        }
+        catch (EmergencyNotFoundException exc)
+        {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Emergency Not Found", exc);
+        }
     }
     @PostMapping
     public void add(@RequestParam int patientId)

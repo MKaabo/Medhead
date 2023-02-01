@@ -1,8 +1,12 @@
 package com.medhead.api.controller;
 import com.medhead.api.dto.Doctor;
+import com.medhead.api.exception.AppointmentNotFoundException;
+import com.medhead.api.exception.DoctorNotFoundException;
 import com.medhead.api.services.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -16,14 +20,29 @@ public class DoctorController
     private DoctorService doctorService;
 
     @GetMapping("/{id}")
-    public Doctor getDoctorById(@PathVariable long id) {
-        return doctorService.findDoctorById(id);
+    public Doctor getDoctorById(@PathVariable long id)
+    {
+        try
+        {
+            return doctorService.findDoctorById(id);
+        }
+        catch (DoctorNotFoundException exc)
+        {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor Not Found", exc);
+        }
     }
 
     @GetMapping
     public List<Doctor> getDoctors()
     {
-        return doctorService.findAll();
+        try
+        {
+            return doctorService.findAll();
+        }
+        catch (DoctorNotFoundException exc)
+        {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor Not Found", exc);
+        }
     }
     @PostMapping
     public void add(Doctor doctor)
