@@ -9,10 +9,9 @@ import java.util.Date;
 
 @Setter
 @Getter
-public class Appointment extends Model{
+public class Appointment extends Model
+{
     private DoctorEntity doctor;
-
     private PatientEntity patient;
-
     private Date date;
 }

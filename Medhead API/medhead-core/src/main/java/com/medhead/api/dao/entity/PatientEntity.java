@@ -7,17 +7,17 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.*;
 
-import java.util.Set;
+import java.util.List;
 
 @jakarta.persistence.Entity
-@Getter
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Table(name = "patient")
 public class PatientEntity extends Entity
 {
@@ -34,14 +34,6 @@ public class PatientEntity extends Entity
     private String phone;
 
     private String position;
-
-    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
-    @Fetch(value = FetchMode.SUBSELECT)
-    private Set <EmergencyEntity> emergencies;
-
-    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
-    @Fetch(value = FetchMode.SUBSELECT)
-    private Set<AppointmentEntity> appointments;
 
     private Specialization specialization;
 

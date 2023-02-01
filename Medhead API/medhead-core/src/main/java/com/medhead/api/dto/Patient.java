@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class Patient extends Model
@@ -19,4 +21,6 @@ public class Patient extends Model
 
     private String position;
     private Specialization specialization;
+    private List<Emergency> emergencies;
+    private List<Emergency> appointments;
 }

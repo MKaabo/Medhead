@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public interface DoctorRepository extends JpaRepository<DoctorEntity, Long> {
@@ -14,7 +15,6 @@ public interface DoctorRepository extends JpaRepository<DoctorEntity, Long> {
 
     public ArrayList<DoctorEntity> findAll();
 
-    public DoctorEntity findBySpecialization(Specialization specialization);
-
+    public List<DoctorEntity> findByHospitalId(long hospitalId);
     public void deleteById(long id);
 }

@@ -3,6 +3,7 @@ package com.medhead.api.services;
 import com.medhead.api.dao.DoctorRepository;
 import com.medhead.api.dao.entity.AppointmentEntity;
 import com.medhead.api.dao.entity.DoctorEntity;
+import com.medhead.api.dao.entity.HospitalEntity;
 import com.medhead.api.dto.Doctor;
 import com.medhead.api.mapper.DoctorMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,16 @@ public class DoctorServiceImpl implements DoctorService
         //filter all appointment after today
         return this.doctorMapper.toModelList(
                 doctorList
+                        .stream()
+                        .collect(Collectors.toList())
+        );
+    }
+
+    public List<Doctor> findByHospitalId(long id)
+    {
+        List<DoctorEntity> doctorsList = this.doctorRepository.findByHospitalId(id);
+        return this.doctorMapper.toModelList(
+                doctorsList
                         .stream()
                         .collect(Collectors.toList())
         );

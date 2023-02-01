@@ -14,4 +14,6 @@ public interface EmergencyService
     public Emergency add(Patient patient, List<Hospital> hospitals);
 
     public void removeById(long id);
+
+    public List<Emergency> findAll();
 }

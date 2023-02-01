@@ -2,7 +2,6 @@ package com.medhead.api.mapper;
 
 import com.medhead.api.dao.entity.Entity;
 import com.medhead.api.dto.Model;
-import org.mapstruct.Mapping;
 
 import java.util.List;
 

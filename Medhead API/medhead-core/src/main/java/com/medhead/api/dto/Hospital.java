@@ -1,21 +1,19 @@
 package com.medhead.api.dto;
 
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.util.List;
-import java.util.Set;
 
-@Getter
-@Setter
+@Data
 public class Hospital extends Model
 {
-    private String name;
     @NotNull
     private String position;
     @Positive
     private int bedsAvailable;
     private List<Doctor> doctors;
+    private List<Emergency> emergencies;
 }

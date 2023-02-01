@@ -1,7 +1,13 @@
 package com.medhead.api.dto;
 
-public class Model {
+import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
 
-    private long id;
-
+@Getter
+@Setter
+public abstract class Model
+{
+    @Id
+    protected long id;
 }

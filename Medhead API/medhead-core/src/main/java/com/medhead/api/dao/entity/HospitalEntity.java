@@ -6,15 +6,18 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.*;
 
 import java.util.Set;
 
 @jakarta.persistence.Entity
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Table(name = "hospital")
 public class HospitalEntity extends Entity
 {
@@ -31,9 +34,4 @@ public class HospitalEntity extends Entity
     @Column(name="beds_available")
     private int bedsAvailable;
 
-    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="hospital")
-    private Set<DoctorEntity> doctors;
-    @OneToMany(mappedBy = "hospital", fetch = FetchType.LAZY)
-    @Fetch(value = FetchMode.SUBSELECT)
-    private Set<EmergencyEntity> emergencies;
 }
