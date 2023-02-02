@@ -10,10 +10,18 @@ import java.util.List;
 @Data
 public class Hospital extends Model
 {
-    @NotNull
+    private String name;
     private String position;
-    @Positive
+    private int totalBeds;
     private int bedsAvailable;
     private List<Doctor> doctors;
     private List<Emergency> emergencies;
+
+    public Hospital(String name, String position, int totalBeds, int bedsAvailable)
+    {
+        this.name = name;
+        this.position = position;
+        this.totalBeds = totalBeds;
+        this.bedsAvailable = bedsAvailable;
+    }
 }
