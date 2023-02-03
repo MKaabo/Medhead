@@ -6,15 +6,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public interface HospitalService {
-
-    // GET
+public interface HospitalService
+{
     public Hospital findHospitalById(long id);
-
     public List<Hospital> findAll();
-    // POST
     public Hospital add(Hospital hospital);
-
-    // DELETE
     public void deleteById(long id);
 }

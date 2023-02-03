@@ -39,7 +39,7 @@ public class HospitalEntity extends Entity
     @AssertTrue
     private boolean isCoordinate()
     {
-        return this.position.contains(";");
+        return this.position.contains(";") && !this.position.contains(" ");
     }
 
 }

@@ -9,7 +9,7 @@ import java.util.List;
 public interface DoctorService
 {
     public List<Doctor> findAll();
-    public void add(Doctor doctor);
+    public Doctor add(Doctor doctor);
     public void removeById(long id);
     public Doctor findDoctorById(long id);
     public List<Doctor> findByHospitalId(long id);

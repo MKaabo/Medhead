@@ -9,12 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public interface DoctorRepository extends JpaRepository<DoctorEntity, Long> {
-
+public interface DoctorRepository extends JpaRepository<DoctorEntity, Long>
+{
     public DoctorEntity findById(long id);
-
-    public ArrayList<DoctorEntity> findAll();
-
     public List<DoctorEntity> findByHospitalId(long hospitalId);
     public void deleteById(long id);
 }

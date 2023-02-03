@@ -51,9 +51,9 @@ public class DoctorServiceImpl implements DoctorService
     }
 
     @Override
-    public void add(Doctor doctor)
+    public Doctor add(Doctor doctor)
     {
-        this.doctorRepository.save(this.doctorMapper.toEntity(doctor));
+        return this.doctorMapper.toModel(this.doctorRepository.save(this.doctorMapper.toEntity(doctor)));
     }
 
     @Override

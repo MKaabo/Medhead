@@ -3,14 +3,13 @@ package com.medhead.api.services;
 import com.medhead.api.dto.Patient;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface PatientService
 {
     public Patient findPatientById(long id);
-
-    // POST
+    public List<Patient> findAll();
     public Patient add(Patient patient);
-
-    // DELETE
     public void deleteById(long id);
 }

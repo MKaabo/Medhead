@@ -18,9 +18,14 @@ import java.util.stream.Collectors;
 public class HospitalServiceImpl implements HospitalService {
     @Autowired
     private HospitalRepository hospitalRepository;
-    @Qualifier("hospitalMapperImpl")
     @Autowired
     private HospitalMapper hospitalMapper;
+
+    public HospitalServiceImpl(HospitalRepository repository)
+    {
+        super();
+        this.hospitalRepository = repository;
+    }
     @Override
     public Hospital findHospitalById(long id)
     {
@@ -37,8 +42,6 @@ public class HospitalServiceImpl implements HospitalService {
                         .collect(Collectors.toList())
         );
     }
-
-
     @Override
     public Hospital add(Hospital hospital)
     {

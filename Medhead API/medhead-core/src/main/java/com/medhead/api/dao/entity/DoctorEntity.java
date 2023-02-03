@@ -14,7 +14,9 @@ import java.util.Set;
 @Getter
 @Setter
 @Table(name = "doctor")
-public class DoctorEntity extends Entity {
+public class DoctorEntity extends Entity
+{
+    @NotEmpty
     private String name;
     @Enumerated
     private Specialization specialization;

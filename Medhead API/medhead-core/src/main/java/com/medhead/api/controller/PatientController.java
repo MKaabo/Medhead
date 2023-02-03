@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
@@ -34,6 +36,18 @@ public class PatientController {
 
     }
 
+    @GetMapping
+    public List<Patient> getPatients()
+    {
+        try
+        {
+            return this.patientService.findAll();
+        }
+        catch (PatientNotFoundException exc)
+        {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Patients Not Found", exc);
+        }
+    }
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable long id) {
         patientService.deleteById(id);
