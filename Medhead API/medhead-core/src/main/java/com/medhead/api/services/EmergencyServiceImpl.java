@@ -30,7 +30,6 @@ public class EmergencyServiceImpl implements EmergencyService
     private EmergencyMapper emergencyMapper;
     @Autowired
     private RestTemplate mapboxRestTemplate;
-
     @Autowired
     private DoctorRepository doctorRepository;
 
@@ -43,8 +42,7 @@ public class EmergencyServiceImpl implements EmergencyService
     @Override
     public Emergency add(Patient patient, List<Hospital> hospitals)
     {
-        Emergency emergency = new Emergency();
-        emergency.setPatient(patient);
+        Emergency emergency = new Emergency(patient);
 
         Hospital hospital = findClosestHospital(patient, hospitals);
         emergency.setHospital(hospital);

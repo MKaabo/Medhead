@@ -11,4 +11,9 @@ public class Emergency extends Model
     private Specialization specializationNeeded;
     private Hospital hospital;
 
+    public Emergency(Patient patient)
+    {
+        this.patient = patient;
+    }
+
 }

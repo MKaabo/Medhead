@@ -29,21 +29,21 @@ public class HospitalRepositoryTest
     public void createHospital()
     {
         Hospital hospitalDto = new Hospital("Hopital", "4.58;125,9", 10, 10);
-        hospital = hospitalMapper.toEntity(hospitalDto);
-        hospital.setId(1);
+        this.hospital = hospitalMapper.toEntity(hospitalDto);
+        this.hospital.setId(1);
     }
 
     @Test
     void contextLoads()
     {
-        assertThat(hospitalRepository).isNotNull();
+        assertThat(this.hospitalRepository).isNotNull();
     }
 
     @Test
     public void testFindById_ResourceNotFound()
     {
-        assertThat(hospitalRepository.findHospitalById(-1)).isNull();
-        assertThat(hospitalRepository.findHospitalById(99999999)).isNull();
+        assertThat(this.hospitalRepository.findHospitalById(-1)).isNull();
+        assertThat(this.hospitalRepository.findHospitalById(99999999)).isNull();
     }
 
     @Nested

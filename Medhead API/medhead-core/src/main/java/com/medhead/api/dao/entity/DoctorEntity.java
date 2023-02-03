@@ -4,10 +4,6 @@ import com.medhead.api.dto.Specialization;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
-import java.util.Set;
 
 @jakarta.persistence.Entity
 @NoArgsConstructor

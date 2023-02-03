@@ -35,33 +35,33 @@ public class PatientServiceTest
     @BeforeEach
     public void createPatient()
     {
-        patient = new Patient("Jean Cassel", 58, "10.2;147");
-        patient.setId(1);
+        this.patient = new Patient("Jean Cassel", 58, "10.2;147");
+        this.patient.setId(1);
     }
 
     @Test
     void contextLoads()
     {
-        assertThat(patientService).isNotNull();
+        assertThat(this.patientService).isNotNull();
     }
 
     @Test
     public void testFindById_validatePatient()
     {
-        when(mockPatientRepository.findPatientById(anyLong()))
-                .thenReturn(patientMapper.toEntity(patient));
-        Patient patientTest = patientService.findPatientById(1);
-        assertThat(patientTest).usingRecursiveComparison().isEqualTo(patient);
+        when(this.mockPatientRepository.findPatientById(anyLong()))
+                .thenReturn(this.patientMapper.toEntity(this.patient));
+        Patient patientTest = this.patientService.findPatientById(1);
+        assertThat(patientTest).usingRecursiveComparison().isEqualTo(this.patient);
     }
 
     @Test
     public void testFindById_validateDifferentPatient()
     {
-        when(mockPatientRepository.findPatientById(anyLong()))
-                .thenReturn(patientMapper.toEntity(patient));
-        Patient patientTest = patientService.findPatientById(1);
-        patient.setPosition("1;-2");
-        assertThat(patientTest).usingRecursiveComparison().isNotEqualTo(patient);
+        when(this.mockPatientRepository.findPatientById(anyLong()))
+                .thenReturn(this.patientMapper.toEntity(this.patient));
+        Patient patientTest = this.patientService.findPatientById(1);
+        this.patient.setPosition("1;-2");
+        assertThat(patientTest).usingRecursiveComparison().isNotEqualTo(this.patient);
     }
     @Test
     public void testFindAll_WithTwoPatients()
@@ -71,11 +71,11 @@ public class PatientServiceTest
         patient2.setId(2);
 
         List<Patient> patients = new ArrayList<>();
-        patients.add(patient);
+        patients.add(this.patient);
         patients.add(patient2);
 
-        when(mockPatientRepository.findAll()).thenReturn(patientMapper.toEntityList(patients));
-        List<Patient> patientsReturned = patientService.findAll();
+        when(this.mockPatientRepository.findAll()).thenReturn(this.patientMapper.toEntityList(patients));
+        List<Patient> patientsReturned = this.patientService.findAll();
         assertThat(patientsReturned).usingRecursiveComparison().isEqualTo(patients);
     }
 
@@ -83,16 +83,16 @@ public class PatientServiceTest
     public void testFindAll_Empty()
     {
         List<Patient> patients = new ArrayList<>();
-        when(mockPatientRepository.findAll()).thenReturn(patientMapper.toEntityList(patients));
-        assertThat(patientService.findAll().size()).isEqualTo(0);
+        when(this.mockPatientRepository.findAll()).thenReturn(this.patientMapper.toEntityList(patients));
+        assertThat(this.patientService.findAll().size()).isEqualTo(0);
     }
     @Test
     public void testAdd_validateAddCorrectPatient()
     {
-        when(mockPatientRepository.save(Mockito.any(PatientEntity.class)))
-                .thenReturn(patientMapper.toEntity(patient));
+        when(this.mockPatientRepository.save(Mockito.any(PatientEntity.class)))
+                .thenReturn(this.patientMapper.toEntity(this.patient));
 
-        assertThat(patientService.add(patient)).usingRecursiveComparison().isEqualTo(patient);
+        assertThat(this.patientService.add(this.patient)).usingRecursiveComparison().isEqualTo(this.patient);
     }
 
 }
