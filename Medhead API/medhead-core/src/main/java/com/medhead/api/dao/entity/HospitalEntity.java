@@ -1,5 +1,6 @@
 package com.medhead.api.dao.entity;
 
+import com.medhead.api.validators.CoordinateValidator;
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.AssertTrue;
@@ -39,7 +40,7 @@ public class HospitalEntity extends Entity
     @AssertTrue
     private boolean isCoordinate()
     {
-        return this.position.contains(";") && !this.position.contains(" ");
+        return CoordinateValidator.coordinateIsValid(position);
     }
 
 }

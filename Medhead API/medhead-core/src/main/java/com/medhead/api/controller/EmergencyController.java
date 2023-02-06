@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -44,7 +46,7 @@ public class EmergencyController
     {
         Patient patient = this.patientService.findPatientById(patientId);
         List <Hospital> hospitals = this.hospitalService.findAll();
-        List <Doctor> doctors;
+        List <Doctor> doctors = new ArrayList<>();
         for (Hospital hospital : hospitals)
         {
             doctors = this.doctorService.findByHospitalId(hospital.getId());

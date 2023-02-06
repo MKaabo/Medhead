@@ -1,6 +1,7 @@
 package com.medhead.api.dao.entity;
 
 import com.medhead.api.dto.Specialization;
+import com.medhead.api.validators.CoordinateValidator;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
@@ -32,7 +33,7 @@ public class PatientEntity extends Entity
     @AssertTrue
     private boolean isCoordinate()
     {
-        return this.position.contains(";") && !this.position.contains(" ");
+        return CoordinateValidator.coordinateIsValid(position);
     }
     @AssertTrue
     private boolean isPhoneNumber()

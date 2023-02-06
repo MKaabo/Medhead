@@ -34,7 +34,7 @@ public class HospitalServiceTest
     @BeforeEach
     public void createHospital()
     {
-        this.hospital = new Hospital("Hopital", "4.58;125,9", 10, 10);
+        this.hospital = new Hospital("Hopital", "4.58,125,9", 10, 10);
         this.hospital.setId(1);
     }
 
@@ -59,13 +59,13 @@ public class HospitalServiceTest
         when(this.mockHospitalRepository.findHospitalById(anyLong()))
                 .thenReturn(this.hospitalMapper.toEntity(this.hospital));
         Hospital hospitalTest = this.hospitalService.findHospitalById(1);
-        this.hospital.setPosition("1;-2");
+        this.hospital.setPosition("1,-2");
         assertThat(hospitalTest).usingRecursiveComparison().isNotEqualTo(this.hospital);
     }
     @Test
     public void testFindAll_WithTwoHospitals()
     {
-        Hospital hospital2 = new Hospital("Hopital2", "9.58;175,9", 20, 20);
+        Hospital hospital2 = new Hospital("Hopital2", "9.58,175,9", 20, 20);
         hospital2.setId(2);
         List<Hospital> hospitals = new ArrayList<>();
         hospitals.add(this.hospital);

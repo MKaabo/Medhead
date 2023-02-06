@@ -35,7 +35,7 @@ public class PatientServiceTest
     @BeforeEach
     public void createPatient()
     {
-        this.patient = new Patient("Jean Cassel", 58, "10.2;147");
+        this.patient = new Patient("Jean Cassel", 58, "10.2,147.5");
         this.patient.setId(1);
     }
 
@@ -60,13 +60,13 @@ public class PatientServiceTest
         when(this.mockPatientRepository.findPatientById(anyLong()))
                 .thenReturn(this.patientMapper.toEntity(this.patient));
         Patient patientTest = this.patientService.findPatientById(1);
-        this.patient.setPosition("1;-2");
+        this.patient.setPosition("1,-2");
         assertThat(patientTest).usingRecursiveComparison().isNotEqualTo(this.patient);
     }
     @Test
     public void testFindAll_WithTwoPatients()
     {
-        Patient patient2 = new Patient("Paul Ruff", 70, "11.58;-1,9");
+        Patient patient2 = new Patient("Paul Ruff", 70, "11.58,-1,9");
         patient2.setSpecialization(Specialization.NEUROPATHOLOGY);
         patient2.setId(2);
 

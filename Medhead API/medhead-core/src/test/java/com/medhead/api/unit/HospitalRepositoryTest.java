@@ -28,7 +28,7 @@ public class HospitalRepositoryTest
     @BeforeEach
     public void createHospital()
     {
-        Hospital hospitalDto = new Hospital("Hopital", "4.58;125,9", 10, 10);
+        Hospital hospitalDto = new Hospital("Hopital", "4.58,125,9", 10, 10);
         this.hospital = hospitalMapper.toEntity(hospitalDto);
         this.hospital.setId(1);
     }

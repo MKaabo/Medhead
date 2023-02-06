@@ -1,7 +1,4 @@
 package com.medhead.api;
-
-import com.medhead.api.services.EmergencyServiceImpl;
-import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;

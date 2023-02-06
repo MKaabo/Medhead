@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,24 +30,40 @@ public class EmergencyServiceTest
     private EmergencyServiceImpl emergencyService;
     @Autowired
     private EmergencyMapper emergencyMapper;
+    private List <Hospital> hospitals;
     private Emergency emergency;
     @MockBean
     private EmergencyRepository mockEmergencyRepository;
-    @MockBean
-    private RestTemplate mockMapboxRestTemplate;
     @MockBean
     private DoctorRepository mockDoctorRepository;
 
     @BeforeEach
     public void createEmergency()
     {
-        Hospital hospital = new Hospital("The Hospital", "55;-28", 800, 789);
-        hospital.setId(1);
-        Patient patient = new Patient("Jean Cassel", 58, "10.2;147");
+        createHospitals();
+        Patient patient = new Patient("Jean Cassel", 58, "5.435387,43.333622");
         patient.setId(1);
 
         this.emergency = new Emergency(patient);
         this.emergency.setId(1);
+    }
+
+    private void createHospitals()
+    {
+        hospitals = new ArrayList<>();
+        hospitals.add(new Hospital("Hôpital Nord", "5.362163,43.379383", 150, 5));
+        hospitals.add(new Hospital("Hôpital Montperrin", "5.438660,43.522411", 50, 3));
+        hospitals.add(new Hospital("Hôpital Lariboisière", "2.341291,48.917518", 300, 250));
+        hospitals.add(new Hospital("Hôpital Vaugirard", "2.280501199302833,48.86794770440761", 600, 286));
+        hospitals.add(new Hospital("Centre Hospitalier de Tourcoing", "3.1572596483538806,50.805934725554344", 200, 110));
+        hospitals.add(new Hospital("Centre Hospitalier de Dunkerque", "2.3827235478750013,51.10697104799068", 20, 5));
+        hospitals.add(new Hospital("Hôpitaux universitaires de Strasbourg", "7.743594610409657,48.58344604062807", 180, 0));
+        hospitals.add(new Hospital("Hôpital Edouard Herriot", "4.873966140508923,45.81929878885463", 1000, 120));
+        hospitals.add(new Hospital("Centre hospitalier Métropole Savoie", "5.895694613481063,45.80781265776782", 180, 0));
+        hospitals.add(new Hospital("Hôpital Rangueil", "1.4455293705867536,43.614261693278266", 1000, 120));
+        hospitals.add(new Hospital("Centre Hospitalier Sèvre et Loire", "-1.4940893252308407,47.20258004614798", 500, 365));
+ //       hospitals.add(new Hospital("Christchurch Hospital", "172.62524408736607,-43.531889564739515", 1800, 1800));
+        hospitals.add(new Hospital("U C Healthcare", "-104.90761951892537,39.62552712114013", 5000, 148));
     }
 
     @Test
@@ -78,8 +93,8 @@ public class EmergencyServiceTest
     @Test
     public void testFindAll_WithTwoEmergencies()
     {
-        Hospital hospital = new Hospital("The Other Hospital", "-138;170", 150, 140);
-        Patient patient = new Patient("Jay Quallin", 71, "-137;170");
+        Hospital hospital = new Hospital("The Other Hospital", "-138,170", 150, 140);
+        Patient patient = new Patient("Jay Quallin", 71, "-137,170");
         Emergency emergency2 = new Emergency(patient);
         emergency2.setHospital(hospital);
         emergency2.setId(2);
@@ -112,7 +127,64 @@ public class EmergencyServiceTest
             when(mockEmergencyRepository.save(Mockito.any(EmergencyEntity.class)))
                     .thenReturn(emergencyMapper.toEntity(emergency));
 
-     //       assertThat(emergencyService.add(emergency)).usingRecursiveComparison().isEqualTo(emergency);
+            Patient patient = new Patient("Jean Cassel", 58, "5.435387,43.333622");
+            patient.setId(1);
+
+            List <Hospital> hospitalList = new ArrayList<> ();
+            hospitalList.add(hospitals.get(0));
+
+            assertThat(emergencyService.add(patient, hospitalList)).usingRecursiveComparison().isEqualTo(emergency);
+        }
+
+        @Test
+        public void testFindClosestHospitalAlgorithm_UsingOnlyTravelDurations()
+        {
+            final int HOSPITAL_MARSEILLE_INDEX = 0;
+            Hospital closestHospital = hospitals.get(HOSPITAL_MARSEILLE_INDEX);
+            Patient patient = new Patient("Jean Cassel", 58, "5.435387,43.333622");
+            patient.setId(1);
+            assertThat(emergencyService.findClosestHospital(patient, hospitals)).usingRecursiveComparison().isEqualTo(closestHospital);
+
+            final int HOSPITAL_NEW_ZEALAND_INDEX = 11;
+            closestHospital = hospitals.get(HOSPITAL_NEW_ZEALAND_INDEX);
+ //           Patient patient2 = new Patient("Howard Shore", 72, "173.955024,-41.524788");
+            Patient patient2 = new Patient("Kobe Bryant", 42, "-104.89566353069789,39.609337164276006");
+            patient.setId(2);
+            assertThat(emergencyService.findClosestHospital(patient2, hospitals)).usingRecursiveComparison().isEqualTo(closestHospital);
+        }
+
+        @Test
+        public void testFindClosestHospitalAlgorithm_UsingTravelDurationsAndAvailableBeds()
+        {
+            final int HOSPITAL_MARSEILLE_INDEX = 0;
+            final int HOSPITAL_AIX_INDEX = 1;
+            Hospital closestHospital = hospitals.get(HOSPITAL_MARSEILLE_INDEX);
+            closestHospital.setBedsAvailable(0);
+            Hospital secondClosestHospital = hospitals.get(HOSPITAL_AIX_INDEX);
+
+            Patient patient = new Patient("Jean Cassel", 58, "5.435387,43.333622");
+            patient.setId(1);
+            assertThat(emergencyService.findClosestHospital(patient, hospitals)).usingRecursiveComparison().isEqualTo(secondClosestHospital);
+        }
+
+        @Test
+        public void testFindClosestHospitalAlgorithm_UsingTravelDurationsAndSpecialization()
+        {
+
+        }
+
+        @Test
+        public void testFindClosestHospitalAlgorithm_UsingTravelDurationsAndSpecializationAndAvailableBeds()
+        {
+
+        }
+
+        public void testFindClosestHospitalAlgorithm_UsingTravelDurations_ToUnreachableArea()
+        {
+            Patient patient = new Patient("Noe Were", 45, "53.892278,-79.159623");
+            patient.setId(1);
+            assertThat(emergencyService.findClosestHospital(patient, hospitals)).isNull();
+
         }
     }
 }
