@@ -2,7 +2,6 @@ package com.medhead.api.controller;
 
 import com.medhead.api.dto.Doctor;
 import com.medhead.api.dto.Hospital;
-import com.medhead.api.exception.EmergencyNotFoundException;
 import com.medhead.api.exception.HospitalNotFoundException;
 import com.medhead.api.services.DoctorService;
 import com.medhead.api.services.HospitalService;

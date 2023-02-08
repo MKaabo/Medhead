@@ -2,9 +2,7 @@ package com.medhead.api.unit;
 import com.medhead.api.dao.DoctorRepository;
 import com.medhead.api.dao.EmergencyRepository;
 import com.medhead.api.dao.entity.EmergencyEntity;
-import com.medhead.api.dto.Emergency;
-import com.medhead.api.dto.Hospital;
-import com.medhead.api.dto.Patient;
+import com.medhead.api.dto.*;
 import com.medhead.api.mapper.EmergencyMapper;
 import com.medhead.api.services.EmergencyServiceImpl;
 import org.junit.jupiter.api.*;
@@ -62,7 +60,6 @@ public class EmergencyServiceTest
         hospitals.add(new Hospital("Centre hospitalier Métropole Savoie", "5.895694613481063,45.80781265776782", 180, 0));
         hospitals.add(new Hospital("Hôpital Rangueil", "1.4455293705867536,43.614261693278266", 1000, 120));
         hospitals.add(new Hospital("Centre Hospitalier Sèvre et Loire", "-1.4940893252308407,47.20258004614798", 500, 365));
- //       hospitals.add(new Hospital("Christchurch Hospital", "172.62524408736607,-43.531889564739515", 1800, 1800));
         hospitals.add(new Hospital("U C Healthcare", "-104.90761951892537,39.62552712114013", 5000, 148));
     }
 
@@ -144,13 +141,16 @@ public class EmergencyServiceTest
             Patient patient = new Patient("Jean Cassel", 58, "5.435387,43.333622");
             patient.setId(1);
             assertThat(emergencyService.findClosestHospital(patient, hospitals)).usingRecursiveComparison().isEqualTo(closestHospital);
+        }
 
-            final int HOSPITAL_NEW_ZEALAND_INDEX = 11;
-            closestHospital = hospitals.get(HOSPITAL_NEW_ZEALAND_INDEX);
- //           Patient patient2 = new Patient("Howard Shore", 72, "173.955024,-41.524788");
-            Patient patient2 = new Patient("Kobe Bryant", 42, "-104.89566353069789,39.609337164276006");
-            patient.setId(2);
-            assertThat(emergencyService.findClosestHospital(patient2, hospitals)).usingRecursiveComparison().isEqualTo(closestHospital);
+        @Test
+        public void testFindClosestHospitalAlgorithm_UsingOnlyTravelDurationsWithNulls()
+        {
+            final int HOSPITAL_US = 11;
+            Hospital closestHospital = hospitals.get(HOSPITAL_US);
+            Patient patient = new Patient("Kareem Nash", 42, "-104.89566353069789,39.609337164276006");
+            patient.setId(1);
+            assertThat(emergencyService.findClosestHospital(patient, hospitals)).usingRecursiveComparison().isEqualTo(closestHospital);
         }
 
         @Test
@@ -170,21 +170,62 @@ public class EmergencyServiceTest
         @Test
         public void testFindClosestHospitalAlgorithm_UsingTravelDurationsAndSpecialization()
         {
+            final int HOSPITAL_VAUGIRARD_INDEX = 3;
+            final int HOSPITAL_TOURCOING = 4;
 
+            Hospital closestHospitalWithSpec = hospitals.get(HOSPITAL_VAUGIRARD_INDEX);
+            Doctor doctor = new Doctor("John Thomas", closestHospitalWithSpec);
+            doctor.setSpecialization(Specialization.IMMUNOLOGY);
+            closestHospitalWithSpec.getDoctors().add(doctor);
+
+            Hospital closestHospitalWithRightSpec = hospitals.get(HOSPITAL_TOURCOING);
+            Doctor doctor1 = new Doctor("Estelle Valey", closestHospitalWithRightSpec);
+            doctor1.setSpecialization(Specialization.CARDIOLOGY);
+            closestHospitalWithRightSpec.getDoctors().add(doctor1);
+
+            Patient patient = new Patient("Jean Cassel", 58, "5.435387,43.333622");
+            patient.setId(1);
+            patient.setSpecialization(Specialization.CARDIOLOGY);
+
+            assertThat(emergencyService.findClosestHospital(patient, hospitals)).usingRecursiveComparison().isEqualTo(closestHospitalWithRightSpec);
         }
 
         @Test
         public void testFindClosestHospitalAlgorithm_UsingTravelDurationsAndSpecializationAndAvailableBeds()
         {
+            final int HOSPITAL_MARSEILLE_INDEX = 0;
+            final int HOSPITAL_VAUGIRARD_INDEX = 3;
+            final int HOSPITAL_TOURCOING = 4;
 
+            Hospital closestHospital = hospitals.get(HOSPITAL_MARSEILLE_INDEX);
+            Doctor doctor = new Doctor("John Thomas", closestHospital);
+            doctor.setSpecialization(Specialization.IMMUNOLOGY);
+            closestHospital.getDoctors().add(doctor);
+
+            Hospital closestHospitalWithRightSpec = hospitals.get(HOSPITAL_VAUGIRARD_INDEX);
+            Doctor doctor1 = new Doctor("Estelle Valey", closestHospitalWithRightSpec);
+            doctor1.setSpecialization(Specialization.CARDIOLOGY);
+            closestHospitalWithRightSpec.getDoctors().add(doctor1);
+            closestHospitalWithRightSpec.setBedsAvailable(0);
+
+            Hospital closestHospitalWithRightSpecAndBeds = hospitals.get(HOSPITAL_TOURCOING);
+            Doctor doctor2 = new Doctor("Mary Ulle", closestHospitalWithRightSpecAndBeds);
+            doctor2.setSpecialization(Specialization.CARDIOLOGY);
+            closestHospitalWithRightSpecAndBeds.getDoctors().add(doctor2);
+
+            Patient patient = new Patient("Jean Cassel", 58, "5.435387,43.333622");
+            patient.setId(1);
+            patient.setSpecialization(Specialization.CARDIOLOGY);
+
+            assertThat(emergencyService.findClosestHospital(patient, hospitals)).usingRecursiveComparison().isEqualTo(closestHospitalWithRightSpecAndBeds);
         }
 
+        @Test
         public void testFindClosestHospitalAlgorithm_UsingTravelDurations_ToUnreachableArea()
         {
             Patient patient = new Patient("Noe Were", 45, "53.892278,-79.159623");
             patient.setId(1);
             assertThat(emergencyService.findClosestHospital(patient, hospitals)).isNull();
-
         }
     }
 }

@@ -15,7 +15,6 @@ public class Doctor extends Model
     private List<AppointmentEntity> appointments;
     private boolean isAvailable;
     private Hospital hospital;
-
     public Doctor(String name, Hospital hospital)
     {
         this.name = name;

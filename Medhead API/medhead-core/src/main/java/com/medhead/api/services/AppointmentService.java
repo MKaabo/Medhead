@@ -14,6 +14,7 @@ public interface AppointmentService {
 
     List<Appointment> findAppointmentByDate(Date date);
 
+    List<Appointment> findAll();
     void removeById(long id);
 
     Appointment add(Appointment appointment);

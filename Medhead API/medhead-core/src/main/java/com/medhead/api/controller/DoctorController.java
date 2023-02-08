@@ -1,6 +1,5 @@
 package com.medhead.api.controller;
 import com.medhead.api.dto.Doctor;
-import com.medhead.api.exception.AppointmentNotFoundException;
 import com.medhead.api.exception.DoctorNotFoundException;
 import com.medhead.api.services.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;

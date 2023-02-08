@@ -23,7 +23,8 @@ public class AppointmentServiceImpl implements AppointmentService
     @Autowired
     private AppointmentMapper appointmentMapper;
 
-    public Appointment add(Appointment appointment){
+    public Appointment add(Appointment appointment)
+    {
         return this.appointmentMapper.toModel(this.appointmentRepository.save(this.appointmentMapper.toEntity(appointment)));
     }
 
@@ -50,6 +51,17 @@ public class AppointmentServiceImpl implements AppointmentService
     public List<Appointment> findAppointmentByDate(Date date)
     {
         return this.appointmentMapper.toModelList(this.appointmentRepository.findByDate(date));
+    }
+
+    @Override
+    public List<Appointment> findAll()
+    {
+        List<AppointmentEntity> appointmentList = this.appointmentRepository.findAll();
+        return this.appointmentMapper.toModelList(
+                appointmentList
+                        .stream()
+                        .collect(Collectors.toList())
+        );
     }
 
     @Override

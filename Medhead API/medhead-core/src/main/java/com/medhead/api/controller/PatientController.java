@@ -1,6 +1,5 @@
 package com.medhead.api.controller;
 import com.medhead.api.dto.Patient;
-import com.medhead.api.exception.HospitalNotFoundException;
 import com.medhead.api.exception.PatientNotFoundException;
 import com.medhead.api.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;

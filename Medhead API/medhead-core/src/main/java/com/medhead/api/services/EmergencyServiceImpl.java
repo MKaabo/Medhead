@@ -20,6 +20,8 @@ import org.springframework.web.client.RestTemplate;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static java.util.Comparator.*;
+
 @Transactional
 @Service
 public class EmergencyServiceImpl implements EmergencyService
@@ -73,6 +75,9 @@ public class EmergencyServiceImpl implements EmergencyService
     {
         final int patientIndex = 0;
         List <DirectionRequest> directionsRequest = getMapboxDirections(patient, hospitals);
+        // Remove all durations that represent travel from patient to patient
+        for (DirectionRequest request : directionsRequest)
+            request.getDurations().get(patientIndex).remove(patientIndex);
         // Set up the matrix
         List <List <Float>> durations = directionsRequest.get(0).getDurations();
         List <List <Float>> currentDirectionMatrix;
@@ -84,38 +89,24 @@ public class EmergencyServiceImpl implements EmergencyService
             durations.get(patientIndex).addAll(currentDirectionMatrix.get(patientIndex));
         }
 
-        // remove all durations that are equal to 0.0 (direction from patient to themself)
-        Float f;
-        for (Iterator<Float> iter = durations.get(patientIndex).listIterator(); iter.hasNext(); )
-        {
-            f = iter.next();
-            if (f == null);
-            else if (f == 0.0)
-                iter.remove();
-        }
-
         //  durations[i][j] -> travel distance from the ith source to the jth durations
         // we are only interested in the durations from durations[0] (our patient position)
-        List <Float> travelTimeFromPatient = durations.get(patientIndex);
-        for (Iterator<Float> iter = travelTimeFromPatient.listIterator(); iter.hasNext(); )
-        {
-            if (iter.next() == null)
-                iter.remove();
-        }
-
+        List <Float> travelTimeFromPatient = new ArrayList<>(durations.get(patientIndex));
         if (travelTimeFromPatient.isEmpty())
         {
             logger.info("No hospitals were found for this emergency. Please contact our support.");
             return null;
         }
 
-        Collections.sort(travelTimeFromPatient);
+        travelTimeFromPatient.sort(nullsLast(comparing(Float::floatValue)));
         List <Hospital> closestHospitals = new ArrayList<> ();
         // Create a list of hospitals sorted from closest to farthest
         // index is the position in hospitals list corresponding to its travel time in durations
         int index;
         for (int i = 0;i < travelTimeFromPatient.size(); i++)
         {
+            if (travelTimeFromPatient.get(i) == null)
+                continue;
             index = durations.get(patientIndex).indexOf(travelTimeFromPatient.get(i));
             closestHospitals.add(hospitals.get(index));
         }
