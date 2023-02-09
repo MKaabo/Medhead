@@ -14,7 +14,7 @@ public class Patient extends Model
     private String position;
     private Specialization specialization;
     private List<Emergency> emergencies;
-    private List<Emergency> appointments;
+    private List<Appointment> appointments;
 
     public Patient(String name, int age, String position)
     {

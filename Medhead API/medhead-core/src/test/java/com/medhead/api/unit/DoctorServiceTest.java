@@ -62,6 +62,7 @@ public class DoctorServiceTest
     {
         when(mockDoctorRepository.findById(anyLong()))
                 .thenReturn(doctorMapper.toEntity(doctor));
+
         Doctor doctorTest = doctorService.findDoctorById(1);
         doctor.setSpecialization(Specialization.IMMUNOLOGY);
         assertThat(doctorTest).usingRecursiveComparison().isNotEqualTo(doctor);

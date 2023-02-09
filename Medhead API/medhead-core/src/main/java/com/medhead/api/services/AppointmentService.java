@@ -1,4 +1,5 @@
 package com.medhead.api.services;
+import com.medhead.api.dao.entity.AppointmentEntity;
 import com.medhead.api.dto.Appointment;
 import org.springframework.stereotype.Service;
 

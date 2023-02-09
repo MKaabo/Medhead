@@ -38,16 +38,10 @@ public class AppointmentServiceTest
     @BeforeEach
     public void createAppointment()
     {
-        appointment = new Appointment();
-        appointment.setId(1);
-
         Hospital hospital =  new Hospital("Hôpital Lariboisière", "2.341291,48.917518", 300, 250);
-        appointment.setDoctor(new Doctor("John Kali", hospital));
-
         Patient patient = new Patient("Jay Quallin", 71, "-137,170");
-        appointment.setPatient(patient);
-
-        appointment.setDate(new Date());
+        appointment = new Appointment(new Doctor("John Kali", hospital), patient, new Date());
+        appointment.setId(1);
     }
     @Test
     public void testFindById_validateAppointment()
@@ -70,14 +64,18 @@ public class AppointmentServiceTest
     @Test
     public void testFindAll_WithTwoAppointments()
     {
-        Appointment appointment2 = new Appointment();
+        Hospital hospital =  new Hospital("Hôpital Nord", "5.362163,43.379383", 150, 5);
+        Patient patient = new Patient("Marc Door", 74, "2.36841,42.99877");
+        Appointment appointment2 = new Appointment( new Doctor("Stefanie Yao", hospital), patient, new Date());
         appointment2.setId(2);
+
         List<Appointment> appointments = new ArrayList<>();
         appointments.add(this.appointment);
         appointments.add(appointment2);
 
         when(this.mockAppointmentRepository.findAll()).thenReturn(this.appointmentMapper.toEntityList(appointments));
-        assertThat(this.appointmentService.findAll()).containsAll(appointments);
+        List<Appointment> appointmentsReturned = appointmentService.findAll();
+        assertThat(appointmentsReturned).usingRecursiveComparison().isEqualTo(appointments);
     }
 
     @Test

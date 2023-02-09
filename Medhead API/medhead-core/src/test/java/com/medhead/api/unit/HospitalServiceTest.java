@@ -72,7 +72,8 @@ public class HospitalServiceTest
         hospitals.add(hospital2);
 
         when(this.mockHospitalRepository.findAll()).thenReturn(this.hospitalMapper.toEntityList(hospitals));
-        assertThat(this.hospitalService.findAll()).containsAll(hospitals);
+        List<Hospital> hospitalsReturned = this.hospitalService.findAll();
+        assertThat(hospitalsReturned).usingRecursiveComparison().isEqualTo(hospitals);
     }
 
     @Test

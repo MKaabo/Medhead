@@ -12,7 +12,7 @@ public class Doctor extends Model
 {
     private String name;
     private Specialization specialization;
-    private List<AppointmentEntity> appointments;
+    private List<Appointment> appointments;
     private boolean isAvailable;
     private Hospital hospital;
     public Doctor(String name, Hospital hospital)

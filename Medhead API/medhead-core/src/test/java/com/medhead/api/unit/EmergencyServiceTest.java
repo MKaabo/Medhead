@@ -113,26 +113,26 @@ public class EmergencyServiceTest
         assertThat(this.emergencyService.findAll().size()).isEqualTo(0);
     }
 
+    @Test
+    public void testAdd_validateAddCorrectEmergency()
+    {
+        when(mockEmergencyRepository.save(Mockito.any(EmergencyEntity.class)))
+                .thenReturn(emergencyMapper.toEntity(emergency));
+
+        Patient patient = new Patient("Jean Cassel", 58, "5.435387,43.333622");
+        patient.setId(1);
+
+        List <Hospital> hospitalList = new ArrayList<> ();
+        hospitalList.add(hospitals.get(0));
+
+        assertThat(emergencyService.add(patient, hospitalList)).usingRecursiveComparison().isEqualTo(emergency);
+    }
+
     @Nested
     @Tag("AddEmergenciesAndFindHospital")
     @DisplayName("Test hospital finding algorithm")
     class TestHospitalFindingAlgorithm
     {
-        @Test
-        public void testAdd_validateAddCorrectEmergency()
-        {
-            when(mockEmergencyRepository.save(Mockito.any(EmergencyEntity.class)))
-                    .thenReturn(emergencyMapper.toEntity(emergency));
-
-            Patient patient = new Patient("Jean Cassel", 58, "5.435387,43.333622");
-            patient.setId(1);
-
-            List <Hospital> hospitalList = new ArrayList<> ();
-            hospitalList.add(hospitals.get(0));
-
-            assertThat(emergencyService.add(patient, hospitalList)).usingRecursiveComparison().isEqualTo(emergency);
-        }
-
         @Test
         public void testFindClosestHospitalAlgorithm_UsingOnlyTravelDurations()
         {
