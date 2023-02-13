@@ -1,5 +1,6 @@
-package com.medhead.api.unit;
+package com.medhead.api.unit.services;
 import com.medhead.api.dao.DoctorRepository;
+import com.medhead.api.dao.entity.AppointmentEntity;
 import com.medhead.api.dao.entity.DoctorEntity;
 import com.medhead.api.dto.Doctor;
 import com.medhead.api.dto.Hospital;
@@ -15,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,6 +92,16 @@ public class DoctorServiceTest
         List<Doctor> doctors = new ArrayList<>();
         when(mockDoctorRepository.findAll()).thenReturn(doctorMapper.toEntityList(doctors));
         assertThat(doctorService.findAll().size()).isEqualTo(0);
+    }
+
+    @Test
+    public void testModify_Doctor()
+    {
+        doctor.setSpecialization(Specialization.IMMUNOLOGY);
+        when(this.mockDoctorRepository.save(Mockito.any(DoctorEntity.class)))
+                .thenReturn(this.doctorMapper.toEntity(doctor));
+        assertThat(doctorService.updateDoctor(1, doctor))
+                .usingRecursiveComparison().isEqualTo(doctor);
     }
     @Test
     public void testAdd_validateAddCorrectDoctor()

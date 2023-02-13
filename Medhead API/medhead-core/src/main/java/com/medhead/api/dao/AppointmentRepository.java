@@ -1,6 +1,7 @@
 package com.medhead.api.dao;
 
 import com.medhead.api.dao.entity.AppointmentEntity;
+import com.medhead.api.dto.Appointment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,6 +16,5 @@ public interface AppointmentRepository extends JpaRepository<AppointmentEntity, 
     public List<AppointmentEntity> findByDoctor_Id(long doctorId);
 
     public List<AppointmentEntity> findByDate(Date date);
-
     public void deleteById(long id);
 }

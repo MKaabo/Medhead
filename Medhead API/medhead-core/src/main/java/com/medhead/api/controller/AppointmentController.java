@@ -1,5 +1,6 @@
 package com.medhead.api.controller;
 
+import com.medhead.api.dao.entity.AppointmentEntity;
 import com.medhead.api.dto.Appointment;
 import com.medhead.api.exception.AppointmentNotFoundException;
 import com.medhead.api.services.AppointmentService;
@@ -37,7 +38,7 @@ public class AppointmentController
         }
     }
 
- // TODO:   @GetMapping
+    // TODO:@GetMapping
     public List<Appointment> getAppointmentByDoctorId(@RequestParam long doctorId)
     {
         try
@@ -62,4 +63,9 @@ public class AppointmentController
         appointmentService.removeById(id);
     }
 
+    @PatchMapping("/{id}")
+    public Appointment updateAppointment(@RequestParam long appointmentId, Appointment appointment)
+    {
+        return this.appointmentService.updateAppointment(appointmentId, appointment);
+    }
 }

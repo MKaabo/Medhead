@@ -1,4 +1,5 @@
 package com.medhead.api.controller;
+import com.medhead.api.dto.Hospital;
 import com.medhead.api.dto.Patient;
 import com.medhead.api.exception.PatientNotFoundException;
 import com.medhead.api.services.PatientService;
@@ -34,7 +35,6 @@ public class PatientController {
         }
 
     }
-
     @GetMapping
     public List<Patient> getPatients()
     {
@@ -47,6 +47,13 @@ public class PatientController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Patients Not Found", exc);
         }
     }
+
+    @PatchMapping("/{id}")
+    public Patient updatePatient(@RequestParam long patientId, Patient patient)
+    {
+        return this.patientService.updatePatient(patientId, patient);
+    }
+
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable long id) {
         patientService.deleteById(id);

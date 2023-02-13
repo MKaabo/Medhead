@@ -1,5 +1,6 @@
-package com.medhead.api.unit;
+package com.medhead.api.unit.services;
 import com.medhead.api.dao.PatientRepository;
+import com.medhead.api.dao.entity.HospitalEntity;
 import com.medhead.api.dao.entity.PatientEntity;
 import com.medhead.api.dto.Patient;
 import com.medhead.api.dto.Specialization;
@@ -85,6 +86,16 @@ public class PatientServiceTest
         List<Patient> patients = new ArrayList<>();
         when(this.mockPatientRepository.findAll()).thenReturn(this.patientMapper.toEntityList(patients));
         assertThat(this.patientService.findAll().size()).isEqualTo(0);
+    }
+
+    @Test
+    public void testModify_Patient()
+    {
+        patient.setAge(59);
+        when(this.mockPatientRepository.save(Mockito.any(PatientEntity.class)))
+                .thenReturn(this.patientMapper.toEntity(patient));
+        assertThat(patientService.updatePatient(1, patient))
+                .usingRecursiveComparison().isEqualTo(patient);
     }
     @Test
     public void testAdd_validateAddCorrectPatient()

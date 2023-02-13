@@ -54,6 +54,14 @@ public class AppointmentServiceImpl implements AppointmentService
     }
 
     @Override
+    public Appointment updateAppointment(long id, Appointment appointment)
+    {
+        appointment.setId(id);
+        return this.appointmentMapper.toModel(
+                this.appointmentRepository.save(this.appointmentMapper.toEntity(appointment)));
+    }
+
+    @Override
     public List<Appointment> findAll()
     {
         List<AppointmentEntity> appointmentList = this.appointmentRepository.findAll();

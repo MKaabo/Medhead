@@ -11,6 +11,5 @@ public interface EmergencyRepository extends JpaRepository<EmergencyEntity, Long
 
     public List<EmergencyEntity> findAll();
     public EmergencyEntity findEmergencyById(long id);
-
     public EmergencyEntity deleteById(long id);
 }

@@ -1,5 +1,6 @@
 package com.medhead.api.controller;
 
+import com.medhead.api.dto.Appointment;
 import com.medhead.api.dto.Doctor;
 import com.medhead.api.dto.Hospital;
 import com.medhead.api.exception.HospitalNotFoundException;
@@ -57,5 +58,11 @@ public class HospitalController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable long id) {
        this.hospitalService.deleteById(id);
+    }
+
+    @PatchMapping("/{id}")
+    public Hospital updateHospital(@RequestParam long hospitalId, Hospital hospital)
+    {
+        return this.hospitalService.updateHospital(hospitalId, hospital);
     }
 }

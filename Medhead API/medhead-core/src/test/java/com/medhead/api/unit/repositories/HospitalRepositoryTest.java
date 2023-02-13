@@ -1,4 +1,4 @@
-package com.medhead.api.unit;
+package com.medhead.api.unit.repositories;
 
 import com.medhead.api.dao.HospitalRepository;
 import com.medhead.api.dao.entity.HospitalEntity;

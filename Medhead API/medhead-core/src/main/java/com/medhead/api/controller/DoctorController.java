@@ -49,6 +49,11 @@ public class DoctorController
         doctorService.add(doctor);
     }
 
+    @PatchMapping("/{id}")
+    public Doctor updateDoctor(@RequestParam long doctorId, Doctor doctor)
+    {
+        return this.doctorService.updateDoctor(doctorId, doctor);
+    }
     @DeleteMapping("/{id}")
     public void delete(@PathVariable long id)
     {

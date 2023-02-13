@@ -52,4 +52,12 @@ public class HospitalServiceImpl implements HospitalService {
     {
         this.hospitalRepository.deleteById(id);
     }
+
+    @Override
+    public Hospital updateHospital(long id, Hospital hospital)
+    {
+        hospital.setId(id);
+        return this.hospitalMapper.toModel
+                (this.hospitalRepository.save(this.hospitalMapper.toEntity(hospital)));
+    }
 }

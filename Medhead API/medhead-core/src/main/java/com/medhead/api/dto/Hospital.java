@@ -13,8 +13,6 @@ public class Hospital extends Model
     private int totalBeds;
     private int bedsAvailable;
     private List<Doctor> doctors = new ArrayList<>();
-    private List<Emergency> emergencies;
-
     public Hospital(String name, String position, int totalBeds, int bedsAvailable)
     {
         this.id = idCount++;

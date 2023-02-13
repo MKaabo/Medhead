@@ -1,4 +1,4 @@
-package com.medhead.api.unit;
+package com.medhead.api.unit.services;
 import com.medhead.api.dao.AppointmentRepository;
 import com.medhead.api.dao.entity.AppointmentEntity;
 import com.medhead.api.dto.Appointment;
@@ -16,8 +16,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -40,7 +40,7 @@ public class AppointmentServiceTest
     {
         Hospital hospital =  new Hospital("Hôpital Lariboisière", "2.341291,48.917518", 300, 250);
         Patient patient = new Patient("Jay Quallin", 71, "-137,170");
-        appointment = new Appointment(new Doctor("John Kali", hospital), patient, new Date());
+        appointment = new Appointment(new Doctor("John Kali", hospital), patient, new Date(System.currentTimeMillis()));
         appointment.setId(1);
     }
     @Test
@@ -66,7 +66,7 @@ public class AppointmentServiceTest
     {
         Hospital hospital =  new Hospital("Hôpital Nord", "5.362163,43.379383", 150, 5);
         Patient patient = new Patient("Marc Door", 74, "2.36841,42.99877");
-        Appointment appointment2 = new Appointment( new Doctor("Stefanie Yao", hospital), patient, new Date());
+        Appointment appointment2 = new Appointment( new Doctor("Stefanie Yao", hospital), patient, new Date(System.currentTimeMillis()));
         appointment2.setId(2);
 
         List<Appointment> appointments = new ArrayList<>();
@@ -78,6 +78,15 @@ public class AppointmentServiceTest
         assertThat(appointmentsReturned).usingRecursiveComparison().isEqualTo(appointments);
     }
 
+    @Test
+    public void testModify_Appointment()
+    {
+        appointment.setDate(Date.valueOf("2024-08-02"));
+        when(this.mockAppointmentRepository.save(Mockito.any(AppointmentEntity.class)))
+                .thenReturn(this.appointmentMapper.toEntity(appointment));
+        assertThat(appointmentService.updateAppointment(1, appointment))
+                .usingRecursiveComparison().isEqualTo(appointment);
+    }
     @Test
     public void testFindAll_Empty()
     {

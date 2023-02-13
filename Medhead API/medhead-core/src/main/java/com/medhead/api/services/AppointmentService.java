@@ -1,5 +1,4 @@
 package com.medhead.api.services;
-import com.medhead.api.dao.entity.AppointmentEntity;
 import com.medhead.api.dto.Appointment;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +14,8 @@ public interface AppointmentService {
 
     List<Appointment> findAppointmentByDate(Date date);
 
+    Appointment updateAppointment(long id, Appointment appointment);
     List<Appointment> findAll();
     void removeById(long id);
-
     Appointment add(Appointment appointment);
 }

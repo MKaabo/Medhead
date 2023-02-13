@@ -34,8 +34,6 @@ public class EmergencyServiceImpl implements EmergencyService
     private EmergencyMapper emergencyMapper;
     @Autowired
     private RestTemplate mapboxRestTemplate;
-    @Autowired
-    private DoctorRepository doctorRepository;
 
     @Override
     public Emergency findEmergencyById(long id)

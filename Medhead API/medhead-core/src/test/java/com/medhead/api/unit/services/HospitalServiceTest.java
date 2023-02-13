@@ -1,7 +1,9 @@
-package com.medhead.api.unit;
+package com.medhead.api.unit.services;
 import com.medhead.api.dao.HospitalRepository;
+import com.medhead.api.dao.entity.DoctorEntity;
 import com.medhead.api.dao.entity.HospitalEntity;
 import com.medhead.api.dto.Hospital;
+import com.medhead.api.dto.Specialization;
 import com.medhead.api.mapper.HospitalMapper;
 import com.medhead.api.services.HospitalServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -82,6 +84,16 @@ public class HospitalServiceTest
         List<Hospital> hospitals = new ArrayList<>();
         when(this.mockHospitalRepository.findAll()).thenReturn(this.hospitalMapper.toEntityList(hospitals));
         assertThat(this.hospitalService.findAll().size()).isEqualTo(0);
+    }
+
+    @Test
+    public void testModify_Hospital()
+    {
+        hospital.setBedsAvailable(3);
+        when(this.mockHospitalRepository.save(Mockito.any(HospitalEntity.class)))
+                .thenReturn(this.hospitalMapper.toEntity(hospital));
+        assertThat(hospitalService.updateHospital(1, hospital))
+                .usingRecursiveComparison().isEqualTo(hospital);
     }
     @Test
     public void testAdd_validateAddCorrectHospital()

@@ -8,7 +8,6 @@ import lombok.Setter;
 public class Emergency extends Model
 {
     private Patient patient;
-    private Specialization specializationNeeded;
     private Hospital hospital;
 
     public Emergency(Patient patient)

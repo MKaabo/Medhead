@@ -2,6 +2,7 @@ package com.medhead.api.services;
 
 import com.medhead.api.dao.DoctorRepository;
 import com.medhead.api.dao.entity.DoctorEntity;
+import com.medhead.api.dto.Appointment;
 import com.medhead.api.dto.Doctor;
 import com.medhead.api.mapper.DoctorMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,14 @@ public class DoctorServiceImpl implements DoctorService
     public Doctor findDoctorById(long id)
     {
         return this.doctorMapper.toModel(this.doctorRepository.findById(id));
+    }
+
+    @Override
+    public Doctor updateDoctor(long id, Doctor doctor)
+    {
+        doctor.setId(id);
+        return this.doctorMapper.toModel(
+                this.doctorRepository.save(this.doctorMapper.toEntity(doctor)));
     }
 
     @Override
