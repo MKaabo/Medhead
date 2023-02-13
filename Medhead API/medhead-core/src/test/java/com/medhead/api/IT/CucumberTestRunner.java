@@ -10,6 +10,5 @@ import org.junit.runner.RunWith;
         features = {"src/test/resources/features"},
         plugin = {"pretty"},
         glue = {"com.medhead.api.IT"})
-@CucumberContextConfiguration
 public class CucumberTestRunner {
 }

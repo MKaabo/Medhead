@@ -16,11 +16,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
-@AutoConfigureTestDatabase
-@ActiveProfiles("test")
-@TestPropertySource(locations = "classpath:application-test.properties")
-public class ScenarioEmergencySteps
+public class ScenarioEmergencySteps extends IntegrationTest
 {
     @Autowired
     private PatientService patientService;
@@ -34,29 +30,29 @@ public class ScenarioEmergencySteps
 
     private long emergencyId = 1;
 
-    @Given("a patient exists")
-    public void a_patient_exists()
+    @Given("a patient in an emergency")
+    public void a_patient_in_an_emergency()
     {
         this.patient = this.patientService.findPatientById(this.patientId);
     }
 
-    @And("At least three hospitals exists hospital")
-    public void at_least_three_hospitals_exists()
+    @And("hospitals exist")
+    public void hospitals_exist()
     {
         hospitals = hospitalService.findAll();
         assertThat(hospitals.size()).isGreaterThan(2);
     }
 
-    @When("a patient is in an emergency")
-    public void a_patient_is_in_an_emergency()
+    @When("a patient is in a medical emergency")
+    public void a_patient_is_in_a_medical_emergency()
     {
         Emergency emergency = new Emergency(this.patient);
         emergency.setId(1);
         emergencyService.add(patient, hospitals);
     }
 
-    @Then("it creates an emergency correctly")
-    public void it_creates_an_emergency_correctly()
+    @Then("the correct hospital should be found")
+    public void the_correct_hospital_should_be_found()
     {
         final int hospitalThatShouldBeFoundIndex = 0;
         Emergency emergency = new Emergency(this.patient);
@@ -64,6 +60,18 @@ public class ScenarioEmergencySteps
         emergency.setHospital(hospitalService.findHospitalById(hospitalThatShouldBeFoundIndex));
         assertThat(this.emergencyService.findEmergencyById(this.emergencyId)).usingRecursiveComparison()
                 .isEqualTo(emergency);
+    }
+
+    @Then("it creates an emergency correctly")
+    public void it_creates_an_emergency_correctly()
+    {
+
+    }
+
+    @Then("we are able to modify the emergency")
+    public void we_are_able_to_modify_the_emergency()
+    {
+
     }
 
 }

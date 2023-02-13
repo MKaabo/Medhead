@@ -20,11 +20,7 @@ import java.sql.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
-@AutoConfigureTestDatabase
-@ActiveProfiles("test")
-@TestPropertySource(locations = "classpath:application-test.properties")
-public class ScenarioAppointmentSteps
+public class ScenarioAppointmentSteps extends IntegrationTest
 {
     @Autowired
     private PatientService patientService;
@@ -41,14 +37,14 @@ public class ScenarioAppointmentSteps
 
     final String APPOINTMENT_TIME =  "2023-09-01";
 
-    @Given("a patient exists")
-    public void a_patient_exists()
+    @Given("a patient who needs an appointment")
+    public void a_patient_who_needs_an_appointment()
     {
         this.patient = this.patientService.findPatientById(this.patientId);
     }
 
-    @And("a doctor exists with an existing hospital")
-    public void a_doctor_exists_with_an_existing_hospital()
+    @And("a doctor available")
+    public void a_doctor_available()
     {
         this.doctor = this.doctorService.findDoctorById(this.doctorId);
         assertThat(this.doctor.getHospital() != null);
@@ -71,4 +67,11 @@ public class ScenarioAppointmentSteps
         assertThat(this.appointmentService.findAppointmentById(this.appointmentId)).usingRecursiveComparison()
                 .isEqualTo(appointment);
     }
+
+    @Then("we are able to modify the appointment")
+    public void we_are_able_to_modify_the_appointment()
+    {
+
+    }
+
 }
