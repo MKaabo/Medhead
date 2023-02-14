@@ -20,6 +20,5 @@ public class EmergencyEntity extends Entity
 
     @ManyToOne(fetch=FetchType.LAZY, optional=false)
     @JoinColumn(name="hospitalId", referencedColumnName="id")
-    @NotNull
     private HospitalEntity hospital;
 }

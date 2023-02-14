@@ -45,7 +45,6 @@ public class EmergencyServiceImpl implements EmergencyService
     public Emergency add(Patient patient, List<Hospital> hospitals)
     {
         Emergency emergency = new Emergency(patient);
-
         Hospital hospital = findClosestHospital(patient, hospitals);
         emergency.setHospital(hospital);
         return this.emergencyMapper.toModel(

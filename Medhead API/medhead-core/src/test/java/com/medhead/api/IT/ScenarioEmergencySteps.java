@@ -7,11 +7,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.TestPropertySource;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -24,6 +21,9 @@ public class ScenarioEmergencySteps extends IntegrationTest
     private HospitalService hospitalService;
     @Autowired
     private EmergencyService emergencyService;
+    @Autowired
+    private DoctorService doctorService;
+
     private Patient patient;
     private long patientId = 1;
     private List <Hospital> hospitals;
@@ -40,25 +40,40 @@ public class ScenarioEmergencySteps extends IntegrationTest
     public void hospitals_exist()
     {
         hospitals = hospitalService.findAll();
+
+        List <Doctor> doctors = new ArrayList<>();
+        Doctor doctor1 = new Doctor("John Kayri", hospitals.get(0));
+        doctor1.setSpecialization(Specialization.CARDIOLOGY);
+        doctor1.setId(5);
+        doctors.add(doctor1);
+        doctorService.add(doctor1);
+
+        Doctor doctor2 = new Doctor("Valérie Trumy", hospitals.get(0));
+        doctor2.setId(6);
+        doctor2.setSpecialization(Specialization.NEUROPATHOLOGY);
+        doctors.add(doctor2);
+        doctorService.add(doctor2);
+
+        hospitals = hospitalService.findAll();
+
+        hospitals.get(1).setDoctors(doctors);
         assertThat(hospitals.size()).isGreaterThan(2);
     }
 
     @When("a patient is in a medical emergency")
     public void a_patient_is_in_a_medical_emergency()
     {
-        Emergency emergency = new Emergency(this.patient);
-        emergency.setId(1);
         emergencyService.add(patient, hospitals);
     }
 
     @Then("the correct hospital should be found")
     public void the_correct_hospital_should_be_found()
     {
-        final int hospitalThatShouldBeFoundIndex = 0;
+        final int hospitalThatShouldBeFoundId = 2;
         Emergency emergency = new Emergency(this.patient);
-        emergency.setId(1);
-        emergency.setHospital(hospitalService.findHospitalById(hospitalThatShouldBeFoundIndex));
-        assertThat(this.emergencyService.findEmergencyById(this.emergencyId)).usingRecursiveComparison()
+        emergency.setId(0);
+        emergency.setHospital(hospitalService.findHospitalById(hospitalThatShouldBeFoundId));
+        assertThat(emergencyService.findEmergencyById(0)).usingRecursiveComparison()
                 .isEqualTo(emergency);
     }
 

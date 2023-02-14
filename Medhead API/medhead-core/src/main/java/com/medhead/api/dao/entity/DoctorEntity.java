@@ -3,6 +3,7 @@ package com.medhead.api.dao.entity;
 import com.medhead.api.dto.Specialization;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @jakarta.persistence.Entity
@@ -18,7 +19,7 @@ public class DoctorEntity extends Entity
     private Specialization specialization;
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "hospital_id")
-    @NotEmpty
+    @NotNull
     private HospitalEntity hospital;
     @Column(name = "is_available")
     private boolean isAvailable;

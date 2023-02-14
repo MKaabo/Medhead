@@ -1,4 +1,4 @@
-Feature: Create appointment
+Feature: Create emergency
 
   Background:
     Given a patient in an emergency
