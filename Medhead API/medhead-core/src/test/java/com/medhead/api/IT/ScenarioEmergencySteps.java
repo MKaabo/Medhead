@@ -25,10 +25,10 @@ public class ScenarioEmergencySteps extends IntegrationTest
     private DoctorService doctorService;
 
     private Patient patient;
-    private long patientId = 1;
+    private final long patientId = 1;
     private List <Hospital> hospitals;
 
-    private long emergencyId = 1;
+    private final long emergencyId = 1;
 
     @Given("a patient in an emergency")
     public void a_patient_in_an_emergency()
