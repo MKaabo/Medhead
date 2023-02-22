@@ -2,7 +2,6 @@ package com.medhead.api.services;
 
 import com.medhead.api.dao.DoctorRepository;
 import com.medhead.api.dao.entity.DoctorEntity;
-import com.medhead.api.dto.Appointment;
 import com.medhead.api.dto.Doctor;
 import com.medhead.api.mapper.DoctorMapper;
 import org.springframework.beans.factory.annotation.Autowired;

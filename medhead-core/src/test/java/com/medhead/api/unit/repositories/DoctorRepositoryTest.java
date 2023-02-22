@@ -2,7 +2,6 @@ package com.medhead.api.unit.repositories;
 
 import com.medhead.api.dao.DoctorRepository;
 import com.medhead.api.dao.entity.DoctorEntity;
-import com.medhead.api.dao.entity.HospitalEntity;
 import com.medhead.api.dto.Doctor;
 import com.medhead.api.dto.Hospital;
 import com.medhead.api.mapper.DoctorMapper;
@@ -10,13 +9,14 @@ import org.junit.jupiter.api.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.TransactionSystemException;
 
 import static org.assertj.core.api.Assertions.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@TestPropertySource("classpath:application-test.properties")
 public class DoctorRepositoryTest
 {
     @Autowired

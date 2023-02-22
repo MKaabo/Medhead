@@ -1,7 +1,6 @@
 package com.medhead.api.services;
 
 import Util.MapboxUtil;
-import com.medhead.api.dao.DoctorRepository;
 import com.medhead.api.dao.EmergencyRepository;
 import com.medhead.api.dao.entity.EmergencyEntity;
 import com.medhead.api.dto.*;
@@ -9,7 +8,6 @@ import com.medhead.api.mapper.EmergencyMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -118,7 +116,7 @@ public class EmergencyServiceImpl implements EmergencyService
                hospitalSpecializations.add(doctor.getSpecialization());
 
             // Remove hospitals with no beds or lacking required specialization
-            if (hospital != null && hospital.getBedsAvailable() > 0)
+            if (hospital.getBedsAvailable() > 0)
             {
                 if (patient.getSpecialization() == null)
                 {
@@ -140,7 +138,7 @@ public class EmergencyServiceImpl implements EmergencyService
     {
         // Create list with hospitals coordinates
         final int MAX_DESTINATIONS = 10;
-        int subListIndex = 0;
+        int subListIndex;
         List <String> hospitalsPosition = new ArrayList<>();
         for (Hospital hospital : hospitals)
             hospitalsPosition.add(hospital.getPosition());
@@ -156,7 +154,7 @@ public class EmergencyServiceImpl implements EmergencyService
 
         List <DirectionRequest> directionsRequest = new ArrayList<>();
         String mapboxQuery;
-        DirectionRequest directionRequest = null;
+        DirectionRequest directionRequest;
         int i = 0;
         // For each 10 possible hospitals, make a mapbox request
         while (true)

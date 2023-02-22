@@ -1,6 +1,5 @@
 package com.medhead.api.controller;
 
-import com.medhead.api.dao.entity.AppointmentEntity;
 import com.medhead.api.dto.Appointment;
 import com.medhead.api.exception.AppointmentNotFoundException;
 import com.medhead.api.services.AppointmentService;

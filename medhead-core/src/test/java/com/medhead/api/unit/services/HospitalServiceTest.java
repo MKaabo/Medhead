@@ -1,9 +1,7 @@
 package com.medhead.api.unit.services;
 import com.medhead.api.dao.HospitalRepository;
-import com.medhead.api.dao.entity.DoctorEntity;
 import com.medhead.api.dao.entity.HospitalEntity;
 import com.medhead.api.dto.Hospital;
-import com.medhead.api.dto.Specialization;
 import com.medhead.api.mapper.HospitalMapper;
 import com.medhead.api.services.HospitalServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +11,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
@@ -24,6 +23,7 @@ import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@ActiveProfiles("test")
 public class HospitalServiceTest
 {
     @Autowired

@@ -7,12 +7,13 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.TestPropertySource;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
+@TestPropertySource("classpath:application-test.properties")
 public class ScenarioEmergencySteps extends IntegrationTest
 {
     @Autowired

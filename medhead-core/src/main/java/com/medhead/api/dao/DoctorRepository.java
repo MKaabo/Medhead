@@ -1,12 +1,8 @@
 package com.medhead.api.dao;
 
 import com.medhead.api.dao.entity.DoctorEntity;
-import com.medhead.api.dto.Doctor;
-import com.medhead.api.dto.Specialization;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository

@@ -1,6 +1,5 @@
 package com.medhead.api.unit.services;
 import com.medhead.api.dao.DoctorRepository;
-import com.medhead.api.dao.entity.AppointmentEntity;
 import com.medhead.api.dao.entity.DoctorEntity;
 import com.medhead.api.dto.Doctor;
 import com.medhead.api.dto.Hospital;
@@ -14,6 +13,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.sql.Date;
@@ -26,6 +26,7 @@ import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@ActiveProfiles("test")
 public class DoctorServiceTest
 {
     @Autowired

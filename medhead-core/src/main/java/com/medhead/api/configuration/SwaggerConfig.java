@@ -20,10 +20,8 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Scrum_ally API")
-                .description("Scrum_ally is a web application designed for project management")
-                .license("MIT License")
-                .licenseUrl("https://opensource.org/licenses/MIT")
+                .title("Medhead API")
+                .description("Medhead API is a web application designed for emergency handling and hospital beds management.")
                 .build();
     }
 }

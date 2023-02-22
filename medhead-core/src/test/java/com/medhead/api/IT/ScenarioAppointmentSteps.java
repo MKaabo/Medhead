@@ -11,15 +11,12 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 
 import java.sql.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
+@TestPropertySource("classpath:application-test.properties")
 public class ScenarioAppointmentSteps extends IntegrationTest
 {
     @Autowired
@@ -29,11 +26,11 @@ public class ScenarioAppointmentSteps extends IntegrationTest
     @Autowired
     private AppointmentService appointmentService;
 
-    private long appointmentId = 1;
+    private final long appointmentId = 1;
     private Patient patient;
-    private long patientId = 1;
+    private final long patientId = 1;
     private Doctor doctor;
-    private long doctorId = 1;
+    private final long doctorId = 1;
 
     final String APPOINTMENT_TIME =  "2023-09-01";
 
@@ -47,7 +44,7 @@ public class ScenarioAppointmentSteps extends IntegrationTest
     public void a_doctor_available()
     {
         this.doctor = this.doctorService.findDoctorById(this.doctorId);
-        assertThat(this.doctor.getHospital() != null);
+        assertThat(this.doctor.getHospital()).isNotNull();
     }
 
     @When("a patient schedules an appointment")
