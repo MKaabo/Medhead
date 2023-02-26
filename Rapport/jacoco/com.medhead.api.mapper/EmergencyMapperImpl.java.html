@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EmergencyMapperImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">medhead-core</a> &gt; <a href="index.source.html" class="el_package">com.medhead.api.mapper</a> &gt; <span class="el_source">EmergencyMapperImpl.java</span></div><h1>EmergencyMapperImpl.java</h1><pre class="source lang-java linenums">package com.medhead.api.mapper;
+
+import com.medhead.api.dao.entity.EmergencyEntity;
+import com.medhead.api.dto.Emergency;
+import com.medhead.api.dto.Patient;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.processing.Generated;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Generated(
+    value = &quot;org.mapstruct.ap.MappingProcessor&quot;,
+    date = &quot;2023-02-23T00:04:38+0100&quot;,
+    comments = &quot;version: 1.5.3.Final, compiler: javac, environment: Java 19.0.1 (Oracle Corporation)&quot;
+)
+@Component
+<span class="fc" id="L18">public class EmergencyMapperImpl implements EmergencyMapper {</span>
+
+    @Autowired
+    private HospitalMapper hospitalMapper;
+    @Autowired
+    private PatientMapper patientMapper;
+
+    @Override
+    public EmergencyEntity toEntity(Emergency model) {
+<span class="pc bpc" id="L27" title="1 of 2 branches missed.">        if ( model == null ) {</span>
+<span class="nc" id="L28">            return null;</span>
+        }
+
+<span class="fc" id="L31">        EmergencyEntity emergencyEntity = new EmergencyEntity();</span>
+
+<span class="fc" id="L33">        emergencyEntity.setId( model.getId() );</span>
+<span class="fc" id="L34">        emergencyEntity.setPatient( patientMapper.toEntity( model.getPatient() ) );</span>
+<span class="fc" id="L35">        emergencyEntity.setHospital( hospitalMapper.toEntity( model.getHospital() ) );</span>
+
+<span class="fc" id="L37">        return emergencyEntity;</span>
+    }
+
+    @Override
+    public Emergency toModel(EmergencyEntity entity) {
+<span class="pc bpc" id="L42" title="1 of 2 branches missed.">        if ( entity == null ) {</span>
+<span class="nc" id="L43">            return null;</span>
+        }
+
+<span class="fc" id="L46">        Patient patient = null;</span>
+
+<span class="fc" id="L48">        patient = patientMapper.toModel( entity.getPatient() );</span>
+
+<span class="fc" id="L50">        Emergency emergency = new Emergency( patient );</span>
+
+<span class="fc" id="L52">        emergency.setId( entity.getId() );</span>
+<span class="fc" id="L53">        emergency.setHospital( hospitalMapper.toModel( entity.getHospital() ) );</span>
+
+<span class="fc" id="L55">        return emergency;</span>
+    }
+
+    @Override
+    public List&lt;EmergencyEntity&gt; toEntityList(List&lt;Emergency&gt; models) {
+<span class="pc bpc" id="L60" title="1 of 2 branches missed.">        if ( models == null ) {</span>
+<span class="nc" id="L61">            return null;</span>
+        }
+
+<span class="fc" id="L64">        List&lt;EmergencyEntity&gt; list = new ArrayList&lt;EmergencyEntity&gt;( models.size() );</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">        for ( Emergency emergency : models ) {</span>
+<span class="fc" id="L66">            list.add( toEntity( emergency ) );</span>
+<span class="fc" id="L67">        }</span>
+
+<span class="fc" id="L69">        return list;</span>
+    }
+
+    @Override
+    public List&lt;Emergency&gt; toModelList(List&lt;EmergencyEntity&gt; entities) {
+<span class="pc bpc" id="L74" title="1 of 2 branches missed.">        if ( entities == null ) {</span>
+<span class="nc" id="L75">            return null;</span>
+        }
+
+<span class="fc" id="L78">        List&lt;Emergency&gt; list = new ArrayList&lt;Emergency&gt;( entities.size() );</span>
+<span class="fc bfc" id="L79" title="All 2 branches covered.">        for ( EmergencyEntity emergencyEntity : entities ) {</span>
+<span class="fc" id="L80">            list.add( toModel( emergencyEntity ) );</span>
+<span class="fc" id="L81">        }</span>
+
+<span class="fc" id="L83">        return list;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
