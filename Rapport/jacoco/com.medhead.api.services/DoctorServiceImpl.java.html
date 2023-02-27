@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DoctorServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">medhead-core</a> &gt; <a href="index.source.html" class="el_package">com.medhead.api.services</a> &gt; <span class="el_source">DoctorServiceImpl.java</span></div><h1>DoctorServiceImpl.java</h1><pre class="source lang-java linenums">package com.medhead.api.services;
+
+import com.medhead.api.dao.DoctorRepository;
+import com.medhead.api.dao.entity.DoctorEntity;
+import com.medhead.api.dto.Doctor;
+import com.medhead.api.mapper.DoctorMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
+import java.util.stream.Collectors;
+
+
+@Transactional
+@Service
+<span class="fc" id="L16">public class DoctorServiceImpl implements DoctorService</span>
+{
+    @Autowired
+    private DoctorRepository doctorRepository;
+    @Autowired
+    private DoctorMapper doctorMapper;
+    @Override
+    public List&lt;Doctor&gt; findAll()
+    {
+<span class="fc" id="L25">        List&lt;DoctorEntity&gt; doctorList = this.doctorRepository.findAll();</span>
+        //filter all appointment after today
+<span class="fc" id="L27">        return this.doctorMapper.toModelList(</span>
+                doctorList
+<span class="fc" id="L29">                        .stream()</span>
+<span class="fc" id="L30">                        .collect(Collectors.toList())</span>
+        );
+    }
+
+    public List&lt;Doctor&gt; findByHospitalId(long id)
+    {
+<span class="nc" id="L36">        List&lt;DoctorEntity&gt; doctorsList = this.doctorRepository.findByHospitalId(id);</span>
+<span class="nc" id="L37">        return this.doctorMapper.toModelList(</span>
+                doctorsList
+<span class="nc" id="L39">                        .stream()</span>
+<span class="nc" id="L40">                        .collect(Collectors.toList())</span>
+        );
+    }
+
+    public Doctor findDoctorById(long id)
+    {
+<span class="fc" id="L46">        return this.doctorMapper.toModel(this.doctorRepository.findById(id));</span>
+    }
+
+    @Override
+    public Doctor updateDoctor(long id, Doctor doctor)
+    {
+<span class="fc" id="L52">        doctor.setId(id);</span>
+<span class="fc" id="L53">        return this.doctorMapper.toModel(</span>
+<span class="fc" id="L54">                this.doctorRepository.save(this.doctorMapper.toEntity(doctor)));</span>
+    }
+
+    @Override
+    public Doctor add(Doctor doctor)
+    {
+<span class="fc" id="L60">        return this.doctorMapper.toModel(this.doctorRepository.save(this.doctorMapper.toEntity(doctor)));</span>
+    }
+
+    @Override
+    public void removeById(long id) {
+<span class="nc" id="L65">        this.doctorRepository.deleteById(id);</span>
+<span class="nc" id="L66">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

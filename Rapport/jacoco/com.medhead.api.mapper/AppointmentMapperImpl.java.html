@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AppointmentMapperImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">medhead-core</a> &gt; <a href="index.source.html" class="el_package">com.medhead.api.mapper</a> &gt; <span class="el_source">AppointmentMapperImpl.java</span></div><h1>AppointmentMapperImpl.java</h1><pre class="source lang-java linenums">package com.medhead.api.mapper;
+
+import com.medhead.api.dao.entity.AppointmentEntity;
+import com.medhead.api.dao.entity.DoctorEntity;
+import com.medhead.api.dto.Appointment;
+import com.medhead.api.dto.Doctor;
+import com.medhead.api.dto.Hospital;
+import com.medhead.api.dto.Patient;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.processing.Generated;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Generated(
+    value = &quot;org.mapstruct.ap.MappingProcessor&quot;,
+    date = &quot;2023-02-23T00:04:38+0100&quot;,
+    comments = &quot;version: 1.5.3.Final, compiler: javac, environment: Java 19.0.1 (Oracle Corporation)&quot;
+)
+@Component
+<span class="fc" id="L22">public class AppointmentMapperImpl implements AppointmentMapper {</span>
+
+    @Autowired
+    private HospitalMapper hospitalMapper;
+    @Autowired
+    private PatientMapper patientMapper;
+
+    @Override
+    public AppointmentEntity toEntity(Appointment model) {
+<span class="pc bpc" id="L31" title="1 of 2 branches missed.">        if ( model == null ) {</span>
+<span class="nc" id="L32">            return null;</span>
+        }
+
+<span class="fc" id="L35">        AppointmentEntity appointmentEntity = new AppointmentEntity();</span>
+
+<span class="fc" id="L37">        appointmentEntity.setId( model.getId() );</span>
+<span class="fc" id="L38">        appointmentEntity.setDoctor( doctorToDoctorEntity( model.getDoctor() ) );</span>
+<span class="fc" id="L39">        appointmentEntity.setPatient( patientMapper.toEntity( model.getPatient() ) );</span>
+<span class="fc" id="L40">        appointmentEntity.setDate( model.getDate() );</span>
+
+<span class="fc" id="L42">        return appointmentEntity;</span>
+    }
+
+    @Override
+    public Appointment toModel(AppointmentEntity entity) {
+<span class="pc bpc" id="L47" title="1 of 2 branches missed.">        if ( entity == null ) {</span>
+<span class="nc" id="L48">            return null;</span>
+        }
+
+<span class="fc" id="L51">        Doctor doctor = null;</span>
+<span class="fc" id="L52">        Patient patient = null;</span>
+<span class="fc" id="L53">        Date date = null;</span>
+
+<span class="fc" id="L55">        doctor = doctorEntityToDoctor( entity.getDoctor() );</span>
+<span class="fc" id="L56">        patient = patientMapper.toModel( entity.getPatient() );</span>
+<span class="fc" id="L57">        date = entity.getDate();</span>
+
+<span class="fc" id="L59">        Appointment appointment = new Appointment( doctor, patient, date );</span>
+
+<span class="fc" id="L61">        appointment.setId( entity.getId() );</span>
+
+<span class="fc" id="L63">        return appointment;</span>
+    }
+
+    @Override
+    public List&lt;AppointmentEntity&gt; toEntityList(List&lt;Appointment&gt; models) {
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">        if ( models == null ) {</span>
+<span class="nc" id="L69">            return null;</span>
+        }
+
+<span class="fc" id="L72">        List&lt;AppointmentEntity&gt; list = new ArrayList&lt;AppointmentEntity&gt;( models.size() );</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">        for ( Appointment appointment : models ) {</span>
+<span class="fc" id="L74">            list.add( toEntity( appointment ) );</span>
+<span class="fc" id="L75">        }</span>
+
+<span class="fc" id="L77">        return list;</span>
+    }
+
+    @Override
+    public List&lt;Appointment&gt; toModelList(List&lt;AppointmentEntity&gt; entities) {
+<span class="pc bpc" id="L82" title="1 of 2 branches missed.">        if ( entities == null ) {</span>
+<span class="nc" id="L83">            return null;</span>
+        }
+
+<span class="fc" id="L86">        List&lt;Appointment&gt; list = new ArrayList&lt;Appointment&gt;( entities.size() );</span>
+<span class="fc bfc" id="L87" title="All 2 branches covered.">        for ( AppointmentEntity appointmentEntity : entities ) {</span>
+<span class="fc" id="L88">            list.add( toModel( appointmentEntity ) );</span>
+<span class="fc" id="L89">        }</span>
+
+<span class="fc" id="L91">        return list;</span>
+    }
+
+    protected DoctorEntity doctorToDoctorEntity(Doctor doctor) {
+<span class="pc bpc" id="L95" title="1 of 2 branches missed.">        if ( doctor == null ) {</span>
+<span class="nc" id="L96">            return null;</span>
+        }
+
+<span class="fc" id="L99">        DoctorEntity doctorEntity = new DoctorEntity();</span>
+
+<span class="fc" id="L101">        doctorEntity.setId( doctor.getId() );</span>
+<span class="fc" id="L102">        doctorEntity.setName( doctor.getName() );</span>
+<span class="fc" id="L103">        doctorEntity.setSpecialization( doctor.getSpecialization() );</span>
+<span class="fc" id="L104">        doctorEntity.setHospital( hospitalMapper.toEntity( doctor.getHospital() ) );</span>
+<span class="fc" id="L105">        doctorEntity.setAvailable( doctor.isAvailable() );</span>
+
+<span class="fc" id="L107">        return doctorEntity;</span>
+    }
+
+    protected Doctor doctorEntityToDoctor(DoctorEntity doctorEntity) {
+<span class="pc bpc" id="L111" title="1 of 2 branches missed.">        if ( doctorEntity == null ) {</span>
+<span class="nc" id="L112">            return null;</span>
+        }
+
+<span class="fc" id="L115">        String name = null;</span>
+<span class="fc" id="L116">        Hospital hospital = null;</span>
+
+<span class="fc" id="L118">        name = doctorEntity.getName();</span>
+<span class="fc" id="L119">        hospital = hospitalMapper.toModel( doctorEntity.getHospital() );</span>
+
+<span class="fc" id="L121">        Doctor doctor = new Doctor( name, hospital );</span>
+
+<span class="fc" id="L123">        doctor.setId( doctorEntity.getId() );</span>
+<span class="fc" id="L124">        doctor.setSpecialization( doctorEntity.getSpecialization() );</span>
+<span class="fc" id="L125">        doctor.setAvailable( doctorEntity.isAvailable() );</span>
+
+<span class="fc" id="L127">        return doctor;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
