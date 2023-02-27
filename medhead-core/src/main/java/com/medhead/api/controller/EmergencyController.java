@@ -52,7 +52,12 @@ public class EmergencyController
             doctors = this.doctorService.findByHospitalId(hospital.getId());
             hospital.setDoctors(doctors);
         }
-        this.emergencyService.add(patient, hospitals);
+
+        Hospital chosenHospital = this.emergencyService.add(patient, hospitals).getHospital();
+        int bedsAvailable = chosenHospital.getBedsAvailable() - 1;
+        chosenHospital.setBedsAvailable(bedsAvailable);
+        hospitalService.add(chosenHospital);
+
     }
 
     @GetMapping("/{id}")

@@ -1,4 +1,4 @@
-package com.medhead.api.configuration;
+package com.medhead.api.controller.configuration;
 
 import org.springframework.context.annotation.Bean;
 import springfox.documentation.builders.ApiInfoBuilder;
